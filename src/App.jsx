@@ -3,6 +3,7 @@ import Navbar from './Elementos/navbar.jsx'
 import Background from './Elementos/background.jsx'
 import Login from './Elementos/login.jsx';
 import { BrowserRouter } from 'react-router-dom';
+import Registro from './Elementos/registro.jsx';
 
 
 const App = () => {
@@ -11,6 +12,8 @@ const App = () => {
       <Login/>
       <Navbar/>
       <Background/>
+      <Cadastro/>
+      
       
     </div>
   )
@@ -18,4 +21,4 @@ const App = () => {
 
 
 
-export default App
+export default App;

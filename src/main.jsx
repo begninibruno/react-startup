@@ -6,6 +6,7 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router
 import Navbar from './Elementos/navbar.jsx'
 import Login from './Elementos/login.jsx'
 import Background from './Elementos/background.jsx'
+import Cadastro from './Elementos/registro.jsx'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
   {
     path: '/background',
     element: <Background />
-  }
+  },
+
+  
 
 
 
