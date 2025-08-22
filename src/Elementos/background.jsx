@@ -1,6 +1,7 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 const navigation = [
@@ -9,6 +10,8 @@ const navigation = [
   { name: 'Marketplace', href: '#' },
   { name: 'Company', href: '#' },
 ]
+
+
 
  function Background() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -117,15 +120,16 @@ const navigation = [
               Cansado de perder tempo em filas?
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-              Com o Queue Less, você acompanha em tempo real a fila da loja que deseja visitar — direto do seu celular.
+              Com o QueueLess, você acompanha em tempo real a fila da loja que deseja visitar — direto do seu celular.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
                 className="rounded-md bg-indigo-500 px-1.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Iniciar 
+                Entrar 
               </a>
+             
             </div>
           </div>
         </div>
@@ -140,9 +144,13 @@ const navigation = [
             }}
             className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
           />
+          
+          
         </div>
       </div>
     </div>
+    
+    
   )
 }
 

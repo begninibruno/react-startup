@@ -12,7 +12,7 @@ const App = () => {
       <Login/>
       <Navbar/>
       <Background/>
-      <Cadastro/>
+     <Registro/>
       
       
     </div>

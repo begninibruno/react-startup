@@ -26,7 +26,7 @@ function Login() {
             src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">Conecte-se a sua conta</h2>
+          <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">Conecte-se com sua conta</h2>
         </div>
 
         <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -81,10 +81,14 @@ function Login() {
           </form>
 
           <p className="mt-6 text-center text-sm/6 text-gray-400">
-           Ainda não é um mebro?{' '}
-            <a href="" className="font-semibold text-indigo-400 hover:text-indigo-300">
+            Ainda não é um mebro?{' '}
+            <button
+              type="button"
+              onClick={() => navigate('/registro')}
+              className="font-semibold text-indigo-400 hover:text-indigo-300 underline bg-transparent border-none cursor-pointer p-0"
+            >
               Cadastre-se
-            </a>
+            </button>
           </p>
         </div>
       </div>
