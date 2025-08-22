@@ -1,12 +1,68 @@
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api'
 
 function Registro() {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [users, setUsers] = useState([])
+
+  const inputName = useRef()
+  const inputEmail = useRef()
+  const inputKey = useRef()
+
+  async function createUsers(){
+      await api.post('/usuarios',{
+        
+        name: inputName.current.value,
+        email: inputEmail.current.value,
+        key: inputKey.current.value    
+      })
+  }
+
+  navigate('/login');
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica de autenticação
-  navigate('/');
+    setError('');
+
+    if (form.password !== form.confirmPassword) {
+      setError('As senhas não conferem.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          key: form.password
+        })
+      });
+
+      if (response.ok) {
+        navigate('/');
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Erro ao cadastrar usuário.');
+      }
+    } catch (err) {
+      setError('Erro de conexão com a API.');
+    }
   };
 
   return (
@@ -31,8 +87,11 @@ function Registro() {
                 id="name"
                 name="name"
                 type="text"
+                ref={inputName}
                 required
                 autoComplete="name"
+                value={form.name}
+                onChange={handleChange}
                 className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
@@ -49,6 +108,8 @@ function Registro() {
                 type="email"
                 required
                 autoComplete="email"
+                value={form.email}
+                onChange={handleChange}
                 className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
@@ -63,8 +124,11 @@ function Registro() {
                 id="password"
                 name="password"
                 type="password"
+                ref={inputKey}
                 required
                 autoComplete="new-password"
+                value={form.password}
+                onChange={handleChange}
                 className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
@@ -79,27 +143,34 @@ function Registro() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
+                ref={inputKey}
                 required
                 autoComplete="new-password"
+                value={form.confirmPassword}
+                onChange={handleChange}
                 className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
           </div>
 
+          {error && (
+            <div className="text-red-500 text-sm">{error}</div>
+          )}
+
           <div>
             <button
               type="submit"
+              onClick={createUsers}
               className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Cadastrar
             </button>
           </div>
         </form>
-
-    
       </div>
     </div>
   );
 }
+
 
 export default Registro;

@@ -15,6 +15,10 @@ const navigation = [
 
  function Background() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const navigate = useNavigate();
+  const handleEntrar = () => {
+  navigate('/login');
+  };
 
   return (
     <div className="bg-gray-900 min-h-screen">
@@ -47,11 +51,11 @@ const navigation = [
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <button className="hidden lg:flex lg:flex-1 lg:justify-end" onClick={handleEntrar}>
             <a href="#" linkto = "login.jsx"className="text-sm/6 font-semibold text-white">
               Entrar   <span aria-hidden="true">&rarr;</span>
             </a>
-          </div>
+          </button>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
           <div className="fixed inset-0 z-50" />
@@ -123,12 +127,13 @@ const navigation = [
               Com o QueueLess, você acompanha em tempo real a fila da loja que deseja visitar — direto do seu celular.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <button
+                type="button"
+                onClick= {handleEntrar }
                 className="rounded-md bg-indigo-500 px-1.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Entrar 
-              </a>
+                Entrar
+              </button>
              
             </div>
           </div>
