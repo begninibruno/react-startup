@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../services/api'
-
+import api from '../Services/api';
 function Registro() {
   const navigate = useNavigate();
 
@@ -20,7 +19,7 @@ function Registro() {
       })
   }
 
-  navigate('/login');
+
 
   const [form, setForm] = useState({
     name: '',
