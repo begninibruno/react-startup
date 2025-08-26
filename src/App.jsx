@@ -4,6 +4,9 @@ import Background from './Elementos/background.jsx'
 import Login from './Elementos/login.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import Registro from './Elementos/registro.jsx';
+import Landpage from './Elementos/landpage.jsx';
+import Cards from './Elementos/cards.jsx';
+
 
 
 const App = () => {
@@ -13,6 +16,9 @@ const App = () => {
       <Navbar/>
       <Background/>
      <Registro/>
+     <Landpage/>
+     <Cards/>
+     
       
       
     </div>

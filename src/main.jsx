@@ -9,6 +9,8 @@ import Login from './Elementos/login.jsx';
 import Background from './Elementos/background.jsx';
 import Cadastro from './Elementos/registro.jsx';
 import Registro from './Elementos/registro.jsx';
+import Landpage from './Elementos/landpage.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -30,7 +32,14 @@ const router = createBrowserRouter([
   {
     path: '/registro',
     element: <Registro />
+  },
+
+  {
+    path: '/landpage',
+    element: <Landpage />
+
   }
+
 
   
 

@@ -6,7 +6,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aqui você pode adicionar a lógica de autenticação
-    navigate('/background');
+  navigate('/landpage');
   };
 
   return (

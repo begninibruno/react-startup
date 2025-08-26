@@ -29,7 +29,7 @@ const navigation = [
               <span className="sr-only">Queue Less</span>
               <img
                 alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" //<------ Logo canto esquerdo
+                src="original_queue.jpg" //<------ Logo canto esquerdo
                 className="h-8 w-auto"
               />
             </a>
