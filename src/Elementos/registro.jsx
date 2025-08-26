@@ -1,7 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import api from '../services/api.js'
 
+=======
+import api from '../Services/api';
+>>>>>>> 60d49bff1c5e9e0ba1f70252b787057b06735a96
 function Registro() {
   const navigate = useNavigate();
 
@@ -20,7 +24,11 @@ function Registro() {
       })
   }
 
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 60d49bff1c5e9e0ba1f70252b787057b06735a96
 
   const [form, setForm] = useState({
     name: '',
