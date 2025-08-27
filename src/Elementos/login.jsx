@@ -23,7 +23,7 @@ function Login() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
           <img
             alt="Your Company"
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+            src="logoteste3.png"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">Conecte-se com sua conta</h2>

@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import api from '../services/api.js'
-
-=======
+import axios from 'axios'; // ou use fetch se preferir
 import api from '../Services/api';
->>>>>>> 60d49bff1c5e9e0ba1f70252b787057b06735a96
+
+
 function Registro() {
   const navigate = useNavigate();
 
@@ -23,12 +21,6 @@ function Registro() {
         key: inputKey.current.value    
       })
   }
-
-<<<<<<< HEAD
- 
-=======
-
->>>>>>> 60d49bff1c5e9e0ba1f70252b787057b06735a96
 
   const [form, setForm] = useState({
     name: '',
@@ -52,24 +44,18 @@ function Registro() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/usuarios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          key: form.password
-        })
+      const response = await axios.post('http://localhost:3000/usuarios', {
+        name: form.name,
+        email: form.email,
+        key: form.password
       });
 
-      if (response.ok) {
-        navigate('/');
-      } else {
-        const data = await response.json();
-        setError(data.error || 'Erro ao cadastrar usuário.');
+      if (response.status === 201) {
+        navigate('/'); // redireciona para login após cadastro
       }
     } catch (err) {
-      setError('Erro de conexão com a API.');
+      console.error(err.response?.data);
+      setError(err.response?.data?.error || 'Erro ao cadastrar usuário.');
     }
   };
 
@@ -77,14 +63,17 @@ function Registro() {
     <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
         <img
-          alt="Your Company"
+          alt="QueueLess"
           src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
           className="mx-auto h-10 w-auto"
         />
-        <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">Crie sua conta</h2>
+        <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">
+          Crie sua conta
+        </h2>
       </div>
 
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
+        {error && <p className="text-red-500 text-center mb-2">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm/6 font-medium text-black-100">
@@ -95,7 +84,6 @@ function Registro() {
                 id="name"
                 name="name"
                 type="text"
-                ref={inputName}
                 required
                 autoComplete="name"
                 value={form.name}
@@ -132,7 +120,6 @@ function Registro() {
                 id="password"
                 name="password"
                 type="password"
-                ref={inputKey}
                 required
                 autoComplete="new-password"
                 value={form.password}
@@ -151,7 +138,6 @@ function Registro() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                ref={inputKey}
                 required
                 autoComplete="new-password"
                 value={form.confirmPassword}
@@ -161,14 +147,10 @@ function Registro() {
             </div>
           </div>
 
-          {error && (
-            <div className="text-red-500 text-sm">{error}</div>
-          )}
-
           <div>
             <button
               type="submit"
-              onClick={createUsers}
+              onClick={() => navigate('/background')}
               className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Cadastrar
@@ -179,6 +161,5 @@ function Registro() {
     </div>
   );
 }
-
 
 export default Registro;
