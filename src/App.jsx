@@ -9,15 +9,17 @@ import Cards from './Elementos/cards.jsx';
 
 
 
+
 const App = () => {
   return (
     <div>
       <Login/>
       <Navbar/>
       <Background/>
-     <Registro/>
-     <Landpage/>
-     <Cards/>
+      <Registro/>
+      <Landpage/>
+      <Cards/>
+      
      
       
       

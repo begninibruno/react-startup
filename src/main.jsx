@@ -13,6 +13,7 @@ import Landpage from './Elementos/landpage.jsx';
 
 
 
+
 const router = createBrowserRouter([
   {
       path: '/',
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     element: <Landpage />
 
   }
+
 
 
   
