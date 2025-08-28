@@ -25,17 +25,21 @@ function Background() {
     if (!mensagem.trim()) return;
 
     setMensagensChat([...mensagensChat, { texto: mensagem, isIA: false }]);
+    const mensagemAtual = mensagem;
     setMensagem('');
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mensagem })
-      });
+      const res = await fetch("http://localhost:5000/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: mensagemAtual })
+});
+
+
       const data = await res.json();
-      setMensagensChat(prev => [...prev, { texto: data.texto, isIA: true }]);
+      setMensagensChat(prev => [...prev, { texto: data.reply, isIA: true }]);
     } catch (err) {
+      console.error(err);
       setMensagensChat(prev => [...prev, { texto: "Erro ao conectar com o suporte.", isIA: true }]);
     }
   };
@@ -48,12 +52,7 @@ function Background() {
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">QueueLess</span>
-              <img
-                alt="QueueLess"
-                src="logoteste2.png"
-                width={90}
-                className="mx-auto h-20 w-auto"
-              />
+              <img alt="QueueLess" src="logoteste2.png" width={90} className="mx-auto h-20 w-auto" />
             </a>
           </div>
 
@@ -151,28 +150,6 @@ function Background() {
         </div>
       </section>
 
-      {/* SEÇÃO A QueueLess */}
-      <section id="a-queueless" className="px-6 py-20 lg:px-8 border-t border-white/10">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-1xl">A QueueLess</h2>
-          <p className="mt-6 text-lg text-gray-300">
-            A <span className="text-[#6875F5] font-bold text-xl">QueueLess</span> é uma aplicação que mostra em tempo real como está o movimento do estabelecimento que você deseja visitar.
-            Você pode verificar se está lotado, se a fila está curta ou se é o momento ideal para ir.
-          </p>
-        </div>
-      </section>
-
-      {/* SEÇÃO Como Funciona */}
-      <section id="como-funciona" className="px-6 py-20 lg:px-8 border-t border-white/10">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-1xl">Como Funciona?</h2>
-          <p className="mt-6 text-lg text-gray-300">
-            O funcionamento é simples: o estabelecimento envia informações sobre o fluxo de clientes,
-            e a <span className="text-[#6875F5] font-bold text-xl">QueueLess</span> organiza esses dados de forma visual, permitindo que você veja rapidamente se a fila está grande ou tranquila.
-          </p>
-        </div>
-      </section>
-
       {/* SEÇÃO Suporte */}
       <section id="suporte" className="px-6 py-20 lg:px-8 border-t border-white/10 bg-gray-900 relative">
         <div className="mx-auto max-w-4xl text-center">
@@ -182,22 +159,6 @@ function Background() {
             que você aproveite ao máximo a experiência com a <span className="text-[#6875F5] font-bold">QueueLess</span>.  
             Entre em contato pelo nosso chat ou pelas nossas redes sociais abaixo.
           </p>
-
-          {/* Redes Sociais */}
-          <div className="mt-10 flex justify-center gap-6">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/facebook-white.svg" alt="Facebook" className="w-8 h-8" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/instagram-white.svg" alt="Instagram" className="w-8 h-8" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/twitter-white.svg" alt="Twitter" className="w-8 h-8" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/linkedin-white.svg" alt="LinkedIn" className="w-8 h-8" />
-            </a>
-          </div>
         </div>
 
         {/* Botão de Chat Flutuante */}

@@ -1,36 +1,58 @@
 import express from "express";
+import bodyParser from "body-parser";
 import cors from "cors";
-import OpenAI from "openai";
 import dotenv from "dotenv";
+import OpenAI from "openai";
 
 dotenv.config();
 
 const app = express();
-const port = 5000;
-
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY=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,
+// Instancia do cliente OpenAI com a chave do .env
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.post("/api/chat", async (req, res) => {
-  try {
-    const { mensagem } = req.body;
-    if (!mensagem) return res.status(400).json({ texto: "Mensagem vazia" });
+// Rota do chat
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: mensagem }],
+// Cadastro de usuários (em memória)
+const usuarios = [];
+
+app.post("/usuarios", (req, res) => {
+  const { name, email, key } = req.body;
+  if (!name || !email || !key) {
+    return res.status(400).json({ error: "Preencha todos os campos." });
+  }
+  // Verifica se já existe usuário com o mesmo email
+  if (usuarios.find(u => u.email === email)) {
+    return res.status(409).json({ error: "E-mail já cadastrado." });
+  }
+  usuarios.push({ name, email, key });
+  return res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+});
+
+// Rota do chat
+app.post("/chat", async (req, res) => {
+  try {
+    const { message } = req.body; // ⚠️ atenção: deve ser 'message'
+
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "Responda sempre de forma simples e curta." },
+        { role: "user", content: message },
+      ],
     });
 
-    const respostaIA = completion.choices[0].message.content;
-    res.json({ texto: respostaIA });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ texto: "Erro na IA" });
+    res.json({ reply: response.choices[0].message.content });
+  } catch (error) {
+    console.error("Erro no servidor:", error);
+    res.status(500).send("Erro ao conectar com o suporte.");
   }
 });
 
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+// Porta do servidor
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));

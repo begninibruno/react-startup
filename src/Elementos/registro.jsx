@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // ou use fetch se preferir
-import api from '../Services/api';
+import api from '../Services/api.js';
 
 
 function Registro() {
@@ -9,7 +9,7 @@ function Registro() {
 
   const [users, setUsers] = useState([])
 
-  const inputName = useRef()
+  const inputName = useRef()                  
   const inputEmail = useRef()
   const inputKey = useRef()
 
@@ -18,7 +18,7 @@ function Registro() {
         
         name: inputName.current.value,
         email: inputEmail.current.value,
-        key: inputKey.current.value    
+        pass: inputKey.current.value    
       })
   }
 
@@ -44,7 +44,7 @@ function Registro() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/usuarios', {
+     const response = await axios.post('http://localhost:5000/usuarios', {
         name: form.name,
         email: form.email,
         key: form.password
@@ -150,9 +150,9 @@ function Registro() {
           <div>
             <button
               type="submit"
-              onClick={() => navigate('/background')}
+              
               className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
+            > 
               Cadastrar
             </button>
           </div>
