@@ -1,0 +1,38 @@
+const express = require('express');
+const fetch = require('node-fetch');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.post('/api/chat', async (req, res) => {
+  const { pergunta } = req.body;
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  try {
+    const resposta = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: 'Você é um assistente útil para dúvidas sobre a plataforma QueueLess.' },
+          { role: 'user', content: pergunta }
+        ],
+        max_tokens: 100,
+        temperature: 0.7
+      }),
+    });
+    const data = await resposta.json();
+    res.json({ resposta: data.choices?.[0]?.message?.content || "Desculpe, não consegui entender sua dúvida." });
+  } catch (err) {
+    res.status(500).json({ resposta: "Erro ao conectar com o suporte." });
+  }
+});
+
+app.listen(3001, () => console.log('Backend rodando na porta 3001'));

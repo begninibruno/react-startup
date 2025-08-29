@@ -1,0 +1,35 @@
+{
+  "name": "queueless-app",
+  "version": "1.0.0",
+  "description": "A web application to monitor queue times in real-time.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "queue",
+    "real-time",
+    "chatbot"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "@heroicons/react": "^1.0.5",
+    "@headlessui/react": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.27.1"
+  },
+  "homepage": "http://yourhomepage.com",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/yourusername/queueless-app.git"
+  }
+}

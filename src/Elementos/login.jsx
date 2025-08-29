@@ -1,12 +1,33 @@
+
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+
 
 function Login() {
   const navigate = useNavigate();
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica de autenticação
-  navigate('/landpage');
+    setError('');
+    try {
+            const response = await axios.post('http://localhost:3000/usuarios', {
+        email: form.email,
+        key: form.password,
+        name: form.name? form.name : "Usuário",
+      });
+      if (response.status === 200) {
+        navigate('/landpage');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Erro ao fazer login.');
+    }
   };
 
   return (
@@ -30,6 +51,7 @@ function Login() {
         </div>
 
         <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
+          {error && <p className="text-red-500 text-center mb-2">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-black-100">
@@ -42,6 +64,8 @@ function Login() {
                   type="email"
                   required
                   autoComplete="email"
+                  value={form.email}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
                 />
               </div>
@@ -65,6 +89,8 @@ function Login() {
                   type="password"
                   required
                   autoComplete="current-password"
+                  value={form.password}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
                 />
               </div>

@@ -44,7 +44,7 @@ function Registro() {
     }
 
     try {
-     const response = await axios.post('http://localhost:5000/usuarios', {
+     const response = await axios.post('http://localhost:3000/usuarios', {
         name: form.name,
         email: form.email,
         key: form.password

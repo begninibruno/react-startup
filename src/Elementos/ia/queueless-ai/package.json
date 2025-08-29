@@ -1,0 +1,19 @@
+{
+  "name": "queueless-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server/src/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "server": "ts-node server/src/index.ts",
+    "build": "npm run build --prefix client"
+  },
+  "dependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0",
+    "ts-node": "^10.0.0"
+  }
+}
