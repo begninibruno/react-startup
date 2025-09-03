@@ -1,8 +1,12 @@
+
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 dotenv.config();
 
@@ -61,20 +65,26 @@ app.post("/api/chat", async (req, res) => {
 });
 
 
-// Armazenamento em memória de usuários
-const usuarios = [];
 
-// Cadastro de usuário
-app.post("/usuarios", (req, res) => {
+// Cadastro de usuário com Prisma
+app.post("/usuarios", async (req, res) => {
   const { name, email, key } = req.body;
   if (!name || !email || !key) {
     return res.status(400).json({ error: "Preencha todos os campos." });
   }
-  if (usuarios.find(u => u.email === email)) {
-    return res.status(409).json({ error: "E-mail já cadastrado." });
+  try {
+    // Verifica se já existe usuário com o mesmo email
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(409).json({ error: "E-mail já cadastrado." });
+    }
+    await prisma.user.create({
+      data: { name, email, key }
+    });
+    return res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+  } catch (err) {
+    return res.status(500).json({ error: "Erro ao cadastrar usuário." });
   }
-  usuarios.push({ name, email, key });
-  return res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
 });
 
 // Login de usuário

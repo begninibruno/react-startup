@@ -15,7 +15,6 @@ function Registro() {
 
   async function createUsers(){
       await api.post('/usuarios',{
-        
         name: inputName.current.value,
         email: inputEmail.current.value,
         pass: inputKey.current.value    
