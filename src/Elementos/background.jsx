@@ -1,7 +1,8 @@
-import { Bars3Icon, XMarkIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
-import { Dialog, DialogPanel, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Dialog, DialogPanel } from '@headlessui/react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 const navigation = [
   { name: 'A QueueLess', href: '#a-queueless' },
@@ -9,48 +10,11 @@ const navigation = [
   { name: 'Suporte', href: '#suporte' },
 ];
 
-// adicione import da IA externa (ajuste caminho/nome de export se diferente)
-import askQueueless from './ia/queue-less';
-
 // --- Component ---
 function Background() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
-  const [mensagem, setMensagem] = useState('');
-  const [mensagensChat, setMensagensChat] = useState([
-    { texto: 'Olá 👋 Como posso te ajudar hoje?', isIA: true },
-  ]);
-  const [carregando, setCarregando] = useState(false);
 
   const handleEntrar = () => (window.location.href = '/login');
-
-  // usa exclusivamente a IA do módulo elementos/ia/queueless
-  async function enviarMensagem() {
-    if (!mensagem.trim() || carregando) return;
-    const textoUsuario = mensagem.trim();
-    const newUserMsg = { texto: textoUsuario, isIA: false };
-
-    // adiciona mensagem do usuário imediatamente
-    setMensagensChat((prev) => [...prev, newUserMsg]);
-    setMensagem('');
-    setCarregando(true);
-
-    try {
-      // espera resposta da IA externa local (módulo)
-      // passamos histórico se o módulo suportar contexto (ajuste conforme implementado)
-      const reply = await askQueueless(textoUsuario, mensagensChat);
-      const respostaFinal = typeof reply === 'string' ? reply : (reply?.text || 'Resposta inválida da IA.');
-      setMensagensChat((prev) => [...prev, { texto: respostaFinal, isIA: true }]);
-    } catch (err) {
-      console.error('Erro ao consultar IA queueless:', err);
-      setMensagensChat((prev) => [
-        ...prev,
-        { texto: 'Ocorreu um erro ao consultar a IA. Tente novamente mais tarde.', isIA: true },
-      ]);
-    } finally {
-      setCarregando(false);
-    }
-  }
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -186,7 +150,7 @@ function Background() {
           <h2 className="text-4xl font-bold text-[#6875F5]">Suporte</h2>
           <p className="mt-6 text-lg text-gray-300">
             Tem dúvidas ou precisa de ajuda? Nossa equipe de suporte está disponível para garantir que você aproveite ao máximo a experiência com a <span className="text-[#6875F5] font-bold">QueueLess</span>.  
-            Entre em contato pelo nosso chat ou pelas nossas redes sociais abaixo.
+            Entre em contato pelas nossas redes sociais abaixo.
           </p>
 
           {/* Redes Sociais */}
@@ -205,54 +169,6 @@ function Background() {
             </a>
           </div>
         </div>
-
-        {/* Botão de Chat Flutuante */}
-        <button
-          className="fixed bottom-6 right-6 bg-[#6875F5] p-4 rounded-full shadow-lg hover:bg-indigo-500 transition"
-          onClick={() => setChatOpen(!chatOpen)}
-        >
-          <ChatBubbleLeftIcon className="h-6 w-6 text-white" />
-        </button>
-
-        {/* Janela do Chat */}
-        <Transition show={chatOpen} as={Fragment}>
-          <div className="fixed bottom-20 right-6 w-80 bg-gray-800 rounded-2xl shadow-lg p-4 flex flex-col">
-            <h3 className="text-lg font-semibold text-white mb-2">Fale conosco</h3>
-            <div className="flex-1 overflow-y-auto mb-2 space-y-2 max-h-60">
-              {mensagensChat.map((msg, i) => (
-                <div key={i} className={`flex ${msg.isIA ? 'justify-start' : 'justify-end'}`}>
-                  <div className={`${msg.isIA ? 'bg-[#6875F5]' : 'bg-gray-600'} text-white px-3 py-2 rounded-lg text-sm max-w-xs`}>
-                    {msg.texto}
-                  </div>
-                </div>
-              ))}
-              {carregando && (
-                <div className="flex justify-start">
-                  <div className="bg-[#6875F5] text-white px-3 py-2 rounded-lg text-sm max-w-xs animate-pulse">Digitando...</div>
-                </div>
-              )}
-            </div>
-
-            <div className="flex">
-              <input
-                type="text"
-                value={mensagem}
-                onChange={(e) => setMensagem(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && enviarMensagem()}
-                placeholder="Digite sua mensagem..."
-                className="flex-1 rounded-l-lg bg-gray-700 text-white px-3 py-2 focus:outline-none"
-                disabled={carregando}
-              />
-              <button
-                onClick={enviarMensagem}
-                className="bg-[#6875F5] px-4 py-2 rounded-r-lg hover:bg-indigo-500 text-white font-semibold"
-                disabled={carregando}
-              >
-                Enviar
-              </button>
-            </div>
-          </div>
-        </Transition>
       </section>
     </div>
   );

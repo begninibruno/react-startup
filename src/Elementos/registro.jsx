@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // ou use fetch se preferir
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import api from '../Services/api.js';
+
+
 
 
 function Registro() {
@@ -59,6 +62,8 @@ function Registro() {
   };
 
   return (
+
+    
     <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
         <img

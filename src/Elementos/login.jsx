@@ -25,7 +25,7 @@ function Login() {
       localStorage.setItem('token', response.data.token);
 
       // Redirecionar para página protegida
-      navigate('/background'); 
+      navigate('/landpage'); 
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
