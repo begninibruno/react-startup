@@ -1,19 +1,10 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dialog, DialogPanel, Transition } from '@headlessui/react'
 import { useState, useRef, useEffect } from 'react'
+import { motion } from "framer-motion";
 
-/**
- * ChatBot bem mais "inteligente" (sem libs externas)
- * - Normaliza texto (remove acentos, pontuação, stopwords simples)
- * - Similaridade por sobreposição de tokens + bônus por frases-chave
- * - Intenções (intents) com memória de contexto para follow-ups
- * - Entidades simples (detecção do nome da loja na pergunta)
- * - Sugestões (quick replies), comandos (/limpar, /exportar)
- * - Ações úteis: rolar para seção, abrir login
- * - Respostas ricas e amigáveis em PT-BR
- */
 
-// ----------------- Utilidades de NLP simplificado -----------------
+// utilidades de NLP simplificado 
 const STOPWORDS = new Set([
   'a', 'o', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'das', 'dos', 'e', 'ou', 'em', 'no', 'na', 'nos', 'nas',
   'para', 'pra', 'por', 'com', 'sem', 'se', 'que', 'qual', 'quais', 'sobre', 'ao', 'aos', 'à', 'às', 'é', 'tem', 'daqui', 'ali', 'aqui',
@@ -45,7 +36,7 @@ function jaccardSimilarity(aTokens, bTokens) {
   return union === 0 ? 0 : inter / union
 }
 
-// Scoring com bônus por frases-chave
+// scoring com bônus por frases-chave
 function scoreUserToEntry(userText, entry) {
   const userTokens = tokenize(userText)
   const entryTokens = entry._cachedTokens || (entry._cachedTokens = tokenize(entry.q.join(' ')))
@@ -58,8 +49,8 @@ function scoreUserToEntry(userText, entry) {
   return Math.min(score, 1)
 }
 
-// ----------------- Base de conhecimento (KB) -----------------
-// Cada item tem: id, intent, q (sinônimos/perguntas), rx (regex extras), answer (string | (ctx) => string)
+// base de conhecimento (KB)
+// cada item tem: id, intent, q (sinônimos/perguntas), rx (regex extras), answer (string | (ctx) => string)
 const KB = [
   {
     id: 'about',
@@ -142,7 +133,7 @@ const KB = [
   },
 ]
 
-// Intenções auxiliares (navegação e ações)
+// intenções auxiliares (navegação e ações)
 const ACTIONS = [
   {
     id: 'go_login',
@@ -186,14 +177,14 @@ const ACTIONS = [
   },
 ]
 
-// Detecção simples de entidade "loja" (para perguntas do tipo: "como esta a fila da X?")
+// detecção simples de entidade "loja" (para perguntas do tipo: "como esta a fila da X?")
 function extractStoreName(text) {
   const m = text.match(/fila (da|do|no|na)\s+([a-z0-9çãõáéíóúâêôüñ\s]{2,})\??$/i)
   if (m && m[2]) return m[2].trim()
   return null
 }
 
-// ----------------- Componente ChatBot -----------------
+// componente ChatBot
 function ChatBot() {
   const [open, setOpen] = useState(false)
   const [minimized, setMinimized] = useState(false)
@@ -255,7 +246,7 @@ function ChatBot() {
     return false
   }
 
-  // Núcleo de resposta "inteligente"
+  // núcleo de resposta "inteligente"
   function responder(userTextRaw) {
     const userText = userTextRaw.trim()
     if (!userText) return
@@ -267,7 +258,7 @@ function ChatBot() {
 
     setSending(true)
 
-    // 1) Ações diretas (navegação/login)
+    // 1) ações diretas (navegação/login)
     for (const action of ACTIONS) {
       if (action.rx.some((r) => r.test(userText))) {
         const out = action.run(tools)
@@ -276,7 +267,7 @@ function ChatBot() {
       }
     }
 
-    // 2) Detecção de entidade (loja)
+    // 2) detecção de entidade (loja)
     const store = extractStoreName(userText)
     if (store) {
       setLastIntent('fila_loja')
@@ -287,7 +278,7 @@ function ChatBot() {
       )
     }
 
-    // 3) Similaridade com KB
+    // 3) similaridade com KB
     const scored = KB.map((entry) => ({ entry, score: scoreUserToEntry(userText, entry) }))
       .sort((a, b) => b.score - a.score)
 
@@ -300,7 +291,7 @@ function ChatBot() {
       return pushUserAndBot(userText, txt)
     }
 
-    // 4) Follow-up/co-referência simples
+    // 4) 4ollow-up/co-referência simples
     if (lastIntent) {
       const followupMap = {
         preco: 'Se você perguntou sobre valores: para usuários é gratuito; estabelecimentos têm planos com recursos extras.',
@@ -311,7 +302,7 @@ function ChatBot() {
       if (txt) return pushUserAndBot(userText, txt)
     }
 
-    // 5) Baixa confiança => pedir esclarecimento com sugestões contextuais
+    // 5) baixa confiança => pedir esclarecimento com sugestões contextuais
     const sugestoes = [
       'O que é a QueueLess?',
       'Como funciona?',
@@ -337,7 +328,7 @@ function ChatBot() {
 
   return (
     <>
-      {/* Botão flutuante */}
+      {/* botão flutuante */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
@@ -353,7 +344,7 @@ function ChatBot() {
         </button>
       )}
 
-      {/* Chat */}
+      {/* chat */}
       <Transition
         show={open && !minimized}
         enter="transition-all duration-300"
@@ -412,7 +403,7 @@ function ChatBot() {
             <div ref={chatEndRef} />
           </div>
 
-          {/* Quick replies */}
+          {/* quick replies */}
           <div className="px-3 pt-2 bg-gray-900 flex flex-wrap gap-2">
             {quickReplies.map((q, i) => (
               <button
@@ -452,7 +443,7 @@ function ChatBot() {
         </div>
       </Transition>
 
-      {/* Botão para restaurar se minimizado */}
+      {/* botão para restaurar se minimizado */}
       {minimized && (
         <button
           onClick={() => setMinimized(false)}
@@ -480,7 +471,7 @@ function saudacaoPorHorario() {
   }
 }
 
-// ----------------- Página/Background (mantém seu layout) -----------------
+// página/Background (mantém seu layout) 
 const navigation = [
   { name: 'A QueueLess', href: '#a-queueless' },
   { name: 'Como Funciona', href: '#como-funciona' },
@@ -579,74 +570,176 @@ function Background() {
       </header>
 
       {/* HERO */}
-      <section className="relative isolate px-6 pt-32 lg:px-8 min-h-screen flex items-center justify-center text-center" id="home">
-  <div className="mx-auto max-w-2xl">
-    <h1 className="text-5xl font-semibold tracking-tight sm:text-7xl">
-      Cansado de perder tempo em filas?
-    </h1>
-    <p className="mt-8 text-lg font-medium text-gray-400 sm:text-xl">
-      Com a <span className="text-[#6875F5] font-bold">QueueLess</span>, você acompanha em tempo real a fila da loja que deseja visitar — direto do seu celular.
-    </p>
-    <div className="mt-10 flex items-center justify-center">
-      <button
-        type="button"
-        onClick={handleEntrar}
-        className="rounded-md bg-indigo-500 px-6 py-3 text-lg font-semibold text-white shadow hover:bg-indigo-400 transition"
+<section className="relative isolate px-6 pt-20 lg:px-8 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+  <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 text-center">
+    <motion.h1
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl"
+    >
+      Cansado de perder tempo em <span className="text-[#6875F5]">filas?</span>
+    </motion.h1>
+
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3, duration: 0.8 }}
+      className="mt-8 text-lg leading-8 text-gray-300 max-w-2xl mx-auto"
+    >
+      Com a <span className="text-[#6875F5] font-bold">QueueLess</span>, você acompanha em tempo real
+      o movimento da loja que deseja visitar. Chega de esperar sem necessidade.
+    </motion.p>
+
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.6, duration: 0.7 }}
+      className="mt-10 flex items-center justify-center gap-6"
+    >
+      <a
+        href="#como-funciona"
+        className="rounded-xl bg-[#6875F5] px-6 py-3 text-base font-semibold text-white shadow-lg hover:bg-[#7e88f8] transition"
       >
-        Entrar
-      </button>
-    </div>
+        Como Funciona
+      </a>
+      <a
+        href="#suporte"
+        className="rounded-xl border border-gray-700 px-6 py-3 text-base font-semibold text-gray-200 hover:bg-gray-800 transition"
+      >
+        Fale Conosco
+      </a>
+    </motion.div>
   </div>
 </section>
 
 
+
       {/* SEÇÃO A QueueLess */}
-      <section id="a-queueless" className="px-6 py-20 lg:px-8 border-t border-white/10">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-1xl">A QueueLess</h2>
-          <p className="mt-6 text-lg text-gray-300">
-            A <span className="text-[#6875F5] font-bold text-xl">QueueLess</span> é uma aplicação que mostra em tempo real como está o movimento do estabelecimento que você deseja visitar.
-            Você pode verificar se está lotado, se a fila está curta ou se é o momento ideal para ir.
-          </p>
-        </div>
-      </section>
+<section
+  id="a-queueless"
+  className="px-6 py-24 lg:px-8 from-[#00000] to-gray-900"
+>
+  <div className="mx-auto max-w-5xl text-center">
+    <motion.h2
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+      className="text-5xl font-extrabold text-white sm:text-6xl"
+    >
+      A <span className="text-[#6875F5]">QueueLess</span>
+    </motion.h2>
+    <motion.p
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.3, duration: 0.8 }}
+      viewport={{ once: true }}
+      className="mt-8 text-lg leading-8 text-gray-300 max-w-3xl mx-auto"
+    >
+      A <span className="text-[#6875F5] font-bold">QueueLess</span> mostra em tempo real como está o movimento do
+      estabelecimento que você deseja visitar. Descubra se está lotado, se a fila está curta ou se é o momento ideal
+      para ir.
+    </motion.p>
+  </div>
+</section>
 
-      {/* SEÇÃO Como Funciona */}
-      <section id="como-funciona" className="px-6 py-20 lg:px-8 border-t border-white/10">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-1xl">Como Funciona?</h2>
-          <p className="mt-6 text-lg text-gray-300">
-            O funcionamento é simples: o estabelecimento envia informações sobre o fluxo de clientes, e a <span className="text-[#6875F5] font-bold text-xl">QueueLess</span> organiza esses dados de forma visual, permitindo que você veja rapidamente se a fila está grande ou tranquila.
-          </p>
-        </div>
-      </section>
+{/* SEÇÃO Como Funciona */}
+<section
+  id="como-funciona"
+  className="px-6 py-24 lg:px-8 bg-gradient-to-b from-gray-900 to-[#00000]"
+>
+  <div className="mx-auto max-w-6xl text-center">
+    <motion.h2
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+      className="text-5xl font-extrabold sm:text-6xl"
+    >
+      Como Funciona?
+    </motion.h2>
+    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        {
+          title: 'Estabelecimento envia dados',
+          desc: 'Fluxo de clientes, check-ins e sensores são atualizados em tempo real.',
+          icon: '📡',
+        },
+        {
+          title: 'Organização dos dados',
+          desc: 'A QueueLess processa tudo e mostra se está lotado, tranquilo ou em movimento.',
+          icon: '📊',
+        },
+        {
+          title: 'Você decide',
+          desc: 'Com base nas informações, escolha o melhor horário para ir sem enfrentar filas.',
+          icon: '✅',
+        },
+      ].map((item, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.2, duration: 0.7 }}
+          viewport={{ once: true }}
+          className="bg-gray-800/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-white/10"
+        >
+          <div className="text-4xl mb-4">{item.icon}</div>
+          <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+          <p className="mt-2 text-gray-300 text-sm">{item.desc}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* SEÇÃO Suporte */}
-      <section id="suporte" className="px-6 py-20 lg:px-8 border-t border-white/10 bg-gray-900 relative">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-bold text-[#6875F5]">Suporte</h2>
-          <p className="mt-6 text-lg text-gray-300">
-            Tem dúvidas ou precisa de ajuda? Nossa equipe de suporte está disponível para garantir que você aproveite ao máximo a experiência com a <span className="text-[#6875F5] font-bold">QueueLess</span>.  
-            Entre em contato pelas nossas redes sociais abaixo.
-          </p>
+{/* SEÇÃO Suporte */}
+<section
+  id="suporte"
+  className="px-6 py-24 lg:px-8 bg-gradient-to-b from-[#00000] to-gray-900"
+>
+  <div className="mx-auto max-w-5xl text-center">
+    <motion.h2
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+      className="text-5xl font-extrabold text-[#00000]"
+    >
+      Suporte
+    </motion.h2>
+    <motion.p
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.3, duration: 0.8 }}
+      viewport={{ once: true }}
+      className="mt-6 text-lg text-gray-300 max-w-3xl mx-auto"
+    >
+      Nossa equipe está disponível para garantir que você aproveite ao máximo a experiência com a{" "}
+      <span className="text-[#6875F5] font-bold">QueueLess</span>. Fale conosco nas redes sociais:
+    </motion.p>
 
-          {/* Redes Sociais */}
-          <div className="mt-10 flex justify-center gap-6">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/facebook-white.svg" alt="Facebook" className="w-8 h-8" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/instagram-white.svg" alt="Instagram" className="w-8 h-8" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/twitter-white.svg" alt="Twitter" className="w-8 h-8" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
-              <img src="/icons/linkedin-white.svg" alt="LinkedIn" className="w-8 h-8" />
-            </a>
-          </div>
-        </div>
-      </section>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.5, duration: 0.7 }}
+      viewport={{ once: true }}
+      className="mt-10 flex justify-center gap-8"
+    >
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
+        <img src="facebook.png" alt="Facebook" className="w-10 h-10" />
+      </a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
+        <img src="instagram.png" alt="Instagram" className="w-10 h-10" />
+      </a>
+      <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
+        <img src="whatsapp.png" alt="Whatsapp" className="w-10 h-10" />
+      </a>
+    </motion.div>
+  </div>
+</section>
+
       
       <style>
   {`

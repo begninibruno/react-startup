@@ -16,7 +16,7 @@ function Login() {
     setError(''); // limpar erros anteriores
 
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('https://api-users-tb6b.onrender.com/login', {
         email: form.email,
         key: form.password, // lembre que no backend você usa 'key'
       });
@@ -38,7 +38,7 @@ function Login() {
   return (
     <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
-        <img alt="Your Company" src="logoteste3.png" className="mx-auto h-10 w-auto" />
+        <img alt="Your Company" src="logooficial10.png" className="mx-auto h-20 w-auto" />
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">
           Conecte-se com sua conta
         </h2>
@@ -95,7 +95,7 @@ function Login() {
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
-              Sign in
+              Login
             </button>
           </div>
         </form>

@@ -1,160 +1,104 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "./Contexts/Context.jsx"; // ✅ Import do contexto de usuário
 
 const navigation = [
-  { name: 'Filas', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-]
+  { name: "Filas", href: "#", current: true },
+    { name: "Planos Premiun", navigate: ("/plancard"), current: true },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
-  const navigate = useNavigate()
-  const [user, setUser] = useState(null)
+  const navigate = useNavigate();
+  const { user, setUser } = useUser(); // ✅ Usando o contexto
 
-  // Função para pegar iniciais
   function getInitials(name) {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("")
-      .toUpperCase()
+      .toUpperCase();
   }
 
-  // Buscar usuário da API
-  async function fetchUser() {
-    try {
-      const res = await fetch("/api/user") // ajuste para o seu endpoint
-      const data = await res.json()
-      setUser(data)
-    } catch (err) {
-      console.error("Erro ao buscar usuário:", err)
-    }
-  }
-
-  useEffect(() => {
-    fetchUser()
-
-    const handleStorage = (event) => {
-      if (event.key === "userData") {
-        const newUser = event.newValue ? JSON.parse(event.newValue) : null
-        setUser(newUser)
-      }
-    }
-
-    window.addEventListener("storage", handleStorage)
-    return () => window.removeEventListener("storage", handleStorage)
-  }, [])
-
-  // Logout → limpa usuário e redireciona
   function handleLogout() {
-    setUser(null)
-    navigate("/")
+    setUser(null);
+    navigate("/");
   }
 
   return (
-    <Disclosure as="nav" className="relative bg-blue-900/95 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10 shadow-md">
+    <Disclosure as="nav" className="bg-blue-900 shadow-md">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          {/* Botão menu mobile */}
+          {/* menu mobile */}
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-blue-200 hover:bg-blue-800/50 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-blue-400">
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Abrir menu principal</span>
-              <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-              <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+            <DisclosureButton className="p-2 text-blue-200 hover:bg-blue-800/50">
+              <Bars3Icon aria-hidden="true" className="block h-6 w-6" />
+              <XMarkIcon aria-hidden="true" className="hidden h-6 w-6" />
             </DisclosureButton>
           </div>
 
-          {/* Logo + links */}
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
-              <img
-                alt="Logo"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=white"
-                className="h-8 w-auto"
-              />
-            </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current
-                        ? 'bg-blue-800 text-white'
-                        : 'text-blue-100 hover:bg-blue-800/60 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium transition-colors'
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+          <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
+  <div className="flex items-center h-16 shrink-0">
+    <img
+      alt="Logo"
+      src="logooficial10.png"
+      className="w-16 h-16 object-contain" // define altura fixa
+    />
+  </div>
+  <div className="hidden sm:ml-6 sm:flex sm:items-center">
+    <div className="flex space-x-4">
+      {navigation.map((item) => (
+        <a
+          key={item.name}
+          href={item.href}
+          className={classNames(
+            item.current
+              ? "bg-blue-800 text-white"
+              : "text-blue-100 hover:bg-blue-800 hover:text-white",
+            "rounded-md px-3 py-2 text-sm font-medium"
+          )}
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
 
-          {/* Dropdown do usuário - só aparece se logado */}
-          {user && (
+
+          {/* Usuário logado ou botão entrar */}
+          {user ? (
             <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <Menu as="div" className="relative ml-3">
-                <MenuButton className="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400">
-                  <span>{getInitials(user.name)}</span>
+                <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold">
+                  {getInitials(user.name)}
                 </MenuButton>
-
-                <MenuItems
-                  transition
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-blue-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in shadow-lg"
-                >
-                  <MenuItem>
-                    <span className="block px-4 py-2 text-sm text-blue-100">
-                      Logado como <strong>{user.name}</strong>
-                    </span>
-                  </MenuItem>
-                  <MenuItem>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left block px-4 py-2 text-sm text-red-400 hover:bg-blue-700/70"
-                    >
-                      Sair
-                    </button>
-                  </MenuItem>
-                </MenuItems>
+                <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Sair
+                  </button>
+                </div>
               </Menu>
             </div>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="ml-4 px-4 py-2 rounded-md bg-blue-700 text-white hover:bg-blue-600 transition"
+            >
+              Entrar
+            </button>
           )}
         </div>
       </div>
-
-      {/* Menu mobile */}
-      <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pt-2 pb-3">
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className={classNames(
-                item.current
-                  ? 'bg-blue-800 text-white'
-                  : 'text-blue-100 hover:bg-blue-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium transition-colors'
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
-        </div>
-      </DisclosurePanel>  
     </Disclosure>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

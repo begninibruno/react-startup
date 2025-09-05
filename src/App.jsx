@@ -24,12 +24,7 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>      
-      <Login/>
-      <Navbar/>
-      <Background/>
-      <Registro/>
-      <Landpage/>
-      <Cards/>
+      
       </BrowserRouter>
         <MainContent />
 
