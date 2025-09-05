@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
   { name: 'Filas', href: '#', current: true },
@@ -14,7 +14,7 @@ function classNames(...classes) {
 
 function Navbar() {
   const navigate = useNavigate()
-  const [user, setUser] = useState(null) // começa null
+  const [user, setUser] = useState(null)
 
   // Função para pegar iniciais
   function getInitials(name) {
@@ -25,10 +25,10 @@ function Navbar() {
       .toUpperCase()
   }
 
-  // Função para buscar dados do usuário da API
+  // Buscar usuário da API
   async function fetchUser() {
     try {
-      const res = await fetch("/api/user") // substitua pelo seu endpoint real
+      const res = await fetch("/api/user") // ajuste para o seu endpoint
       const data = await res.json()
       setUser(data)
     } catch (err) {
@@ -36,11 +36,9 @@ function Navbar() {
     }
   }
 
-  // useEffect para buscar usuário inicialmente e escutar mudanças de login
   useEffect(() => {
     fetchUser()
 
-    // Exemplo: caso você use localStorage para login
     const handleStorage = (event) => {
       if (event.key === "userData") {
         const newUser = event.newValue ? JSON.parse(event.newValue) : null
@@ -102,50 +100,35 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Dropdown do usuário */}
-          <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Menu as="div" className="relative ml-3">
-              <MenuButton className="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400">
-                {user ? (
+          {/* Dropdown do usuário - só aparece se logado */}
+          {user && (
+            <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <Menu as="div" className="relative ml-3">
+                <MenuButton className="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400">
                   <span>{getInitials(user.name)}</span>
-                ) : (
-                  <UserIcon className="h-6 w-6 text-gray-300" />
-                )}
-              </MenuButton>
+                </MenuButton>
 
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-blue-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in shadow-lg"
-              >
-                {user ? (
-                  <>
-                    <MenuItem>
-                      <span className="block px-4 py-2 text-sm text-blue-100">
-                        Logado como <strong>{user.name}</strong>
-                      </span>
-                    </MenuItem>
-                    <MenuItem>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left block px-4 py-2 text-sm text-red-400 hover:bg-blue-700/70"
-                      >
-                        Sair
-                      </button>
-                    </MenuItem>
-                  </>
-                ) : (
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-blue-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in shadow-lg"
+                >
                   <MenuItem>
-                    <a
-                      href="/login"
-                      className="block px-4 py-2 text-sm text-blue-100 data-focus:bg-blue-700/70 data-focus:outline-hidden"
-                    >
-                      Entrar
-                    </a>
+                    <span className="block px-4 py-2 text-sm text-blue-100">
+                      Logado como <strong>{user.name}</strong>
+                    </span>
                   </MenuItem>
-                )}
-              </MenuItems>
-            </Menu>
-          </div>
+                  <MenuItem>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left block px-4 py-2 text-sm text-red-400 hover:bg-blue-700/70"
+                    >
+                      Sair
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+          )}
         </div>
       </div>
 

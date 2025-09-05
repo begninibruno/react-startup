@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { ChatController } from '../controllers/chatController';
+//import { Router } from 'express';
+//import { ChatController } from '../controllers/chatController';
 
-const router = Router();
-const chatController = new ChatController();
+//const router = Router();
+//const chatController = new ChatController();
 
-router.post('/send-message', chatController.handleMessage);
+//router.post('/send-message', chatController.handleMessage);
 
-export default router;
+//export default router;

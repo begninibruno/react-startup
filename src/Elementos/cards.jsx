@@ -152,8 +152,6 @@ function Cards() {
           ))}
         </div>
 
-        {/* 🔹 Avatar do usuário logado */}
-        {user && <UserAvatar name={user.name} />}
       </div>
 
       {/* Grid de cards */}
