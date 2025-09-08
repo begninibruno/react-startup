@@ -1,11 +1,18 @@
 import React from "react"
 import { useUser } from "../Navbar" // importa do Navbar, pq o context tá junto nele
 
-function LoginPage() {
-  const { setUser } = useUser()
+function LoginPage() {  
+  const [email, setEmail] = useState("");
 
+  // Estado para armazenar a senha digitada pelo usuário
+  const [senha, setSenha] = useState("");
+
+  // Estado para controlar o loading durante o processo de login
+  const [loading, setLoading] = useState(false);
   async function handleSubmit(e) {
     e.preventDefault()
+
+    
 
     // Pega os valores de email e senha do formulário
     const email = e.target.email.value

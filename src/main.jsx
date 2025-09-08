@@ -10,6 +10,16 @@ import Cadastro from './Elementos/registro.jsx';
 import Registro from './Elementos/registro.jsx';
 import Landpage from './Elementos/landpage.jsx';
 import Plancard from './Elementos/plancard.jsx';
+
+
+
+
+  // Usa as funções do context
+  const handleLogin = () => {
+    authContext?.login(email, senha);
+  };
+
+
   
 
 

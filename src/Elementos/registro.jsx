@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import LoginGoogle from "../Elementos/logingoogle.jsx";
 
 function Registro() {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ function Registro() {
       });
 
       if (response.status === 201) {
-        navigate('/'); // redireciona para login após cadastro
+        navigate('/login'); // redireciona para login após cadastro
       }
     } catch (err) {
       console.error(err.response?.data);
@@ -141,10 +140,7 @@ function Registro() {
               </button>
             </div>
 
-            {/* Botão de login com Google */}
-            <div>
-              <LoginGoogle />
-            </div>
+          
           </form>
         </div>
       </div>

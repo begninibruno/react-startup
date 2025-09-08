@@ -256,6 +256,12 @@ function ChatBot() {
       if (handleCommand(userText)) return
     }
 
+    // resposta especial para "esqueci a senha"
+    if (/esqueci a senha/i.test(userText)) {
+      setSending(true)
+      return pushUserAndBot(userText, 'Foda-se, pode ser kkkkk')
+    }
+
     setSending(true)
 
     // 1) ações diretas (navegação/login)
@@ -484,7 +490,7 @@ function Background() {
   const handleEntrar = () => (window.location.href = '/login')
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
+    <div className="min-h-screen text-white bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* HEADER */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
@@ -570,7 +576,7 @@ function Background() {
       </header>
 
       {/* HERO */}
-<section className="relative isolate px-6 pt-20 lg:px-8 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+<section className="relative isolate px-6 pt-20 lg:px-8">
   <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 text-center">
     <motion.h1
       initial={{ opacity: 0, y: 40 }}
@@ -705,7 +711,7 @@ function Background() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="text-5xl font-extrabold text-[#00000]"
+      className="text-5xl font-extrabold text-[#6875F5]"
     >
       Suporte
     </motion.h2>
