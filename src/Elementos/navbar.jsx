@@ -1,11 +1,18 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton } from "@headlessui/react";
+import {
+  Disclosure,
+  DisclosureButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./Contexts/Context.jsx"; // ✅ Import do contexto de usuário
 
 const navigation = [
   { name: "Filas", href: "#", current: true },
-    { name: "Planos Premiun", navigate: ("/plancard"), current: true },
+  { name: "Planos Premiun", navigate: "/plancard", current: true },
 ];
 
 function classNames(...classes) {
@@ -14,7 +21,7 @@ function classNames(...classes) {
 
 function Navbar() {
   const navigate = useNavigate();
-  const { user, setUser } = useUser(); // ✅ Usando o contexto
+  const { user, setUser } = useUser(); // ✅ Usando o context
 
   function getInitials(name) {
     return name
@@ -41,34 +48,34 @@ function Navbar() {
             </DisclosureButton>
           </div>
 
+          {/* logo + navegação */}
           <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
-  <div className="flex items-center h-16 shrink-0">
-    <img
-      alt="Logo"
-      src="logooficial10.png"
-      className="w-16 h-16 object-contain" // define altura fixa
-    />
-  </div>
-  <div className="hidden sm:ml-6 sm:flex sm:items-center">
-    <div className="flex space-x-4">
-      {navigation.map((item) => (
-        <a
-          key={item.name}
-          href={item.href}
-          className={classNames(
-            item.current
-              ? "bg-blue-800 text-white"
-              : "text-blue-100 hover:bg-blue-800 hover:text-white",
-            "rounded-md px-3 py-2 text-sm font-medium"
-          )}
-        >
-          {item.name}
-        </a>
-      ))}
-    </div>
-  </div>
-</div>
-
+            <div className="flex items-center h-16 shrink-0">
+              <img
+                alt="Logo"
+                src="logooficial10.png"
+                className="w-16 h-16 object-contain"
+              />
+            </div>
+            <div className="hidden sm:ml-6 sm:flex sm:items-center">
+              <div className="flex space-x-4">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? "bg-blue-800 text-white"
+                        : "text-blue-100 hover:bg-blue-800 hover:text-white",
+                      "rounded-md px-3 py-2 text-sm font-medium"
+                    )}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
 
           {/* Usuário logado ou botão entrar */}
           {user ? (
@@ -77,14 +84,23 @@ function Navbar() {
                 <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold">
                   {getInitials(user.name)}
                 </MenuButton>
-                <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg">
-                  <button
-                    onClick={handleLogout}
-                    className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Sair
-                  </button>
-                </div>
+
+                {/* Dropdown do usuário */}
+                <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <MenuItem>
+                    {({ active }) => (
+                      <button
+                        onClick={handleLogout}
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "w-full px-3 py-2 text-left text-sm text-gray-700"
+                        )}
+                      >
+                        Sair
+                      </button>
+                    )}
+                  </MenuItem>
+                </MenuItems>
               </Menu>
             </div>
           ) : (

@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useUser } from "./Contexts/Context"
+  
 function Login() {
+
+  const { setUser } = useUser(); // Hook para acessar o contexto do usuário
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -23,8 +26,13 @@ function Login() {
 
       // Salvar token no localStorage ou sessionStorage
       localStorage.setItem('token', response.data.token);
+      
 
-      // Redirecionar para página protegida
+  const usuario = { userId: response.data.id, name: response.data.name, email: response.data.email };
+  setUser(usuario); // Salvar usuário no contexto
+      
+  
+  // Redirecionar para página protegida
       navigate('/landpage'); 
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {

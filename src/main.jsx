@@ -13,16 +13,6 @@ import Plancard from './Elementos/plancard.jsx';
 
 
 
-
-  // Usa as funções do context
-  const handleLogin = () => {
-    authContext?.login(email, senha);
-  };
-
-
-  
-
-
 // ✅ Importar o UserProvider
 import { UserProvider } from './Elementos/Contexts/Context.jsx';
 
