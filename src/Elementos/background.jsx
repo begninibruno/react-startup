@@ -259,8 +259,7 @@ function ChatBot() {
     // resposta especial para "esqueci a senha"
     if (/esqueci a senha/i.test(userText)) {
       setSending(true)
-      return pushUserAndBot(userText, 'Foda-se, pode ser kkkkk')
-    }
+      return pushUserAndBot(userText, 'Foda-se 👍')}
 
     setSending(true)
 

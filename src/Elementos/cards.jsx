@@ -8,7 +8,7 @@ function UserAvatar({ name }) {
     : "??";
 
   return (
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-400 text-white font-bold">
+    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-400 text-white font-bold">👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍
       {initials}
     </div>
   );
@@ -30,7 +30,7 @@ function Cards() {
 
   const cards = [
     {
-      title: "Burguer King",
+      title: "Burguer King", 
       description:
         "Sabor autêntico e inconfundível, preparado no fogo e servido do seu jeito, com a rapidez que o seu dia pede.",
       img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Burger_King_logo_%281999%E2%80%932020%29.svg/1200px-Burger_King_logo_%281999%E2%80%932020%29.svg.png",
