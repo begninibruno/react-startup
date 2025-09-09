@@ -12,7 +12,7 @@ import { useUser } from "./Contexts/Context.jsx"; // ✅ Import do contexto de u
 
 const navigation = [
   { name: "Filas", href: "#", current: true },
-  { name: "Planos Premiun", navigate: "/plancard", current: true },
+  
 ];
 
 function classNames(...classes) {

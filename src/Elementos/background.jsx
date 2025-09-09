@@ -259,7 +259,7 @@ function ChatBot() {
     // resposta especial para "esqueci a senha"
     if (/esqueci a senha/i.test(userText)) {
       setSending(true)
-      return pushUserAndBot(userText, 'Foda-se 👍')}
+      return pushUserAndBot(userText, 'Ainda não posso ajudar com recuperação de senha. Mas em breve incrementaremos isso. ' )}
 
     setSending(true)
 
@@ -521,11 +521,15 @@ function Background() {
             ))}
           </div>
 
-          <button className="hidden lg:flex lg:flex-1 lg:justify-end" onClick={handleEntrar}>
-            <span className="text-sm/6 font-semibold text-white">
-              Entrar <span aria-hidden="true">&rarr;</span>
-            </span>
-          </button>
+          <button
+  onClick={handleEntrar}
+  className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2
+             bg-blue-600 hover:bg-blue-700
+             text-white font-semibold px-4 py-2 rounded-xl
+             shadow-md transition-all duration-200" 
+>
+  Entrar
+</button> 
         </nav>
 
         {/* Mobile menu panel */}

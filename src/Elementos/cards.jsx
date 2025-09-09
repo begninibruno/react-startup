@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModalCard from "./modalCard";
+import BolinhaPequena from "./bolinha";
 
 // 🔹 Componente Avatar
 function UserAvatar({ name }) {
@@ -30,7 +31,7 @@ function Cards() {
 
   const cards = [
     {
-      title: "Burguer King", 
+      title: "Burguer King",  
       description:
         "Sabor autêntico e inconfundível, preparado no fogo e servido do seu jeito, com a rapidez que o seu dia pede.",
       img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Burger_King_logo_%281999%E2%80%932020%29.svg/1200px-Burger_King_logo_%281999%E2%80%932020%29.svg.png",
