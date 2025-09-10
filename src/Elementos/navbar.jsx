@@ -37,7 +37,7 @@ function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-blue-900 shadow-md">
+    <Disclosure as="nav" className=" bg-[#A8E063] shadow-md">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           {/* menu mobile */}
@@ -53,7 +53,7 @@ function Navbar() {
             <div className="flex items-center h-16 shrink-0">
               <img
                 alt="Logo"
-                src="logooficial10.png"
+                src="logooficial10.png" 
                 className="w-16 h-16 object-contain"
               />
             </div>
@@ -65,8 +65,8 @@ function Navbar() {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-blue-800 text-white"
-                        : "text-blue-100 hover:bg-blue-800 hover:text-white",
+                        ? " bg-amber-950 text-white"
+                        : "text-blue-100 hover:bg-amber-950 hover:text-white",
                       "rounded-md px-3 py-2 text-sm font-medium"
                     )}
                   >
@@ -106,7 +106,7 @@ function Navbar() {
           ) : (
             <button
               onClick={() => navigate("/login")}
-              className="ml-4 px-4 py-2 rounded-md bg-blue-700 text-white hover:bg-blue-600 transition"
+              className="ml-4 px-4 py-2 rounded-md bg-amber-950 text-white hover:bg-blue-600 transition"
             >
               Entrar
             </button>

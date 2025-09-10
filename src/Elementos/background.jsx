@@ -2,6 +2,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dialog, DialogPanel, Transition } from '@headlessui/react'
 import { useState, useRef, useEffect } from 'react'
 import { motion } from "framer-motion";
+import { Instagram, Facebook, Phone } from "lucide-react"
+//import logoKiwiLess from 'src/Elementos/logoKiwiLess.png';
+
+
 
 
 // utilidades de NLP simplificado 
@@ -55,10 +59,10 @@ const KB = [
   {
     id: 'about',
     intent: 'sobre',
-    q: ['o que e a queueless', 'sobre a plataforma', 'o que faz a queueless', 'missao', 'para que serve'],
-    rx: [/o que e (a )?queueless/i, /sobre a queueless/i],
+    q: ['o que e a KiwiLess', 'sobre a plataforma', 'o que faz a KiwiLess', 'missao', 'para que serve'],
+    rx: [/o que e (a )?KiwiLess/i, /sobre a KiwiLess/i],
     answer: () => (
-      'A QueueLess mostra em tempo real o movimento e o tempo de espera de estabelecimentos parceiros, ' +
+      'A KiwiLess mostra em tempo real o movimento e o tempo de espera de estabelecimentos parceiros, ' +
       'assim você decide a melhor hora de ir. Nosso foco é reduzir filas, evitar lotação e melhorar sua experiência.'
     ),
   },
@@ -108,7 +112,7 @@ const KB = [
     q: ['quem criou', 'quem desenvolveu', 'time', 'equipe'],
     rx: [/quem criou|quem desenvolveu|time|equipe/i],
     answer: () => (
-      'A QueueLess é desenvolvida por um time focado em tecnologia e experiência do usuário, com o objetivo de acabar com o estresse das filas.'
+      'A KiwiLess é desenvolvida por um time focado em tecnologia e experiência do usuário, com o objetivo de acabar com o estresse das filas.'
     ),
   },
   {
@@ -148,11 +152,11 @@ const ACTIONS = [
   {
     id: 'go_section_about',
     intent: 'ir_sobre',
-    q: ['a queueless', 'sobre a queueless', 'secao sobre'],
-    rx: [/a queueless|sobre a queueless|secao sobre/i],
+    q: ['a KiwiLess', 'sobre a KiwiLess', 'secao sobre'],
+    rx: [/a KiwiLess|sobre a KiwiLess|secao sobre/i],
     run: ({ scrollTo }) => {
-      scrollTo('#a-queueless')
-      return 'Levei você até a seção “A QueueLess”.'
+      scrollTo('#a-KiwiLess')
+      return 'Levei você até a seção “A KiwiLess”.'
     },
   },
   {
@@ -189,7 +193,7 @@ function ChatBot() {
   const [open, setOpen] = useState(false)
   const [minimized, setMinimized] = useState(false)
   const [messages, setMessages] = useState([
-    { from: 'bot', text: saudacaoPorHorario() + ' Eu sou o assistente da QueueLess. Em que posso ajudar?' },
+    { from: 'bot', text: saudacaoPorHorario() + ' Eu sou o assistente da KiwiLess. Em que posso ajudar?' },
   ])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -211,7 +215,7 @@ function ChatBot() {
   }
 
   const quickReplies = [
-    'O que é a QueueLess?',
+    'O que é a KiwiLess?',
     'Como funciona?',
     'É grátis?',
     'Quais lojas atendem?',
@@ -237,7 +241,7 @@ function ChatBot() {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'chat-queueless.json'
+      a.download = 'chat-KiwiLess.json'
       a.click()
       URL.revokeObjectURL(url)
       setMessages((msgs) => [...msgs, { from: 'bot', text: 'Exportei a conversa como JSON.' }])
@@ -309,7 +313,7 @@ function ChatBot() {
 
     // 5) baixa confiança => pedir esclarecimento com sugestões contextuais
     const sugestoes = [
-      'O que é a QueueLess?',
+      'O que é a KiwiLess?',
       'Como funciona?',
       'É grátis?',
       'Quero integrar como lojista',
@@ -337,7 +341,7 @@ function ChatBot() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-indigo-500 to-indigo-700 hover:scale-105 transition-transform duration-200 text-white rounded-full shadow-2xl p-4 flex items-center gap-2 animate-bounce"
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-[#A8E063] to-[#7ED957] hover:scale-105 transition-transform duration-200 text-[#232D1B] rounded-full shadow-2xl p-4 flex items-center gap-2 animate-bounce"
           style={{ boxShadow: '0 4px 24px rgba(104,117,245,0.3)' }}
           aria-label="Abrir chat de suporte"
         >
@@ -359,14 +363,14 @@ function ChatBot() {
         leaveFrom="opacity-100 translate-y-0 scale-100"
         leaveTo="opacity-0 translate-y-10 scale-95"
       >
-        <div className="fixed bottom-6 right-6 z-50 w-80 max-w-[95vw] bg-gray-900 rounded-xl shadow-2xl flex flex-col overflow-hidden border border-indigo-300/40">
-          <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-4 py-3 flex justify-between items-center">
+        <div className="fixed bottom-6 right-6 z-50 w-80 max-w-[95vw] bg-[#232D1B] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-[#A8E063]/40">
+          <div className="bg-gradient-to-r from-[#A8E063] to-[#7ED957] text-[#232D1B] px-4 py-3 flex justify-between items-center">
             <span className="font-semibold flex items-center gap-2">
               <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="9" />
                 <path d="M7 15h8M8 9h.01M14 9h.01" />
               </svg>
-              Suporte QueueLess
+              Suporte KiwiLess
             </span>
             <div className="flex gap-1">
               <button
@@ -384,14 +388,14 @@ function ChatBot() {
             </div>
           </div>
 
-          <div className="flex-1 px-4 py-3 overflow-y-auto bg-gray-900" style={{ maxHeight: '340px' }}>
+          <div className="flex-1 px-4 py-3 overflow-y-auto bg-[#232D1B]" style={{ maxHeight: '340px' }}>
             {messages.map((msg, idx) => (
               <div key={idx} className={`mb-2 flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} transition-all`}>
                 <div
                   className={`px-3 py-2 rounded-lg text-sm max-w-[80%] break-words shadow ${
                     msg.from === 'user'
-                      ? 'bg-indigo-600 text-white rounded-br-none'
-                      : 'bg-gray-800 text-indigo-100 rounded-bl-none'
+                      ? 'bg-[#A8E063] text-[#232D1B] rounded-br-none'
+                      : 'bg-[#E9F9E1] text-[#232D1B] rounded-bl-none'
                   }`}
                 >
                   {msg.text}
@@ -400,7 +404,7 @@ function ChatBot() {
             ))}
             {sending && (
               <div className="mb-2 flex justify-start">
-                <div className="px-3 py-2 rounded-lg text-sm bg-gray-800 text-indigo-100 max-w-[80%]">
+                <div className="px-3 py-2 rounded-lg text-sm bg-[#E9F9E1] text-[#232D1B] max-w-[80%]">
                   <span className="inline-block animate-pulse">Digitando…</span>
                 </div>
               </div>
@@ -409,25 +413,25 @@ function ChatBot() {
           </div>
 
           {/* quick replies */}
-          <div className="px-3 pt-2 bg-gray-900 flex flex-wrap gap-2">
+          <div className="px-3 pt-2 bg-[#232D1B] flex flex-wrap gap-2">
             {quickReplies.map((q, i) => (
               <button
                 key={i}
                 onClick={() => responder(q)}
-                className="text-xs bg-gray-800 hover:bg-gray-700 text-indigo-100 rounded-full px-3 py-1 border border-white/10"
+                className="text-xs bg-[#A8E063] hover:bg-[#7ED957] text-[#232D1B] rounded-full px-3 py-1 border border-[#A8E063]/30"
               >
                 {q}
               </button>
             ))}
           </div>
 
-          <div className="px-4 py-3 bg-gray-800 flex gap-2 items-center border-t border-indigo-300/10">
+          <div className="px-4 py-3 bg-[#E9F9E1] flex gap-2 items-center border-t border-[#A8E063]/10">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 rounded-lg border border-indigo-400/30 bg-gray-900 text-indigo-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder:text-indigo-300"
+              className="flex-1 rounded-lg border border-[#A8E063]/30 bg-[#E9F9E1] text-[#232D1B] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#A8E063] placeholder:text-[#7ED957]"
               placeholder="Digite sua dúvida (ex.: Como funciona?)"
               aria-label="Digite sua dúvida"
               autoFocus
@@ -436,13 +440,13 @@ function ChatBot() {
             <button
               onClick={handleSend}
               disabled={sending || !input.trim()}
-              className={`bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold text-sm transition disabled:opacity-50 disabled:cursor-not-allowed`}
+              className={`bg-[#A8E063] hover:bg-[#7ED957] text-[#232D1B] px-4 py-2 rounded-lg font-semibold text-sm transition disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               Enviar
             </button>
           </div>
 
-          <div className="px-4 pb-3 bg-gray-800 text-[10px] text-indigo-200/70">
+          <div className="px-4 pb-3 bg-[#E9F9E1] text-[10px] text-[#7ED957]/70">
             Dicas: use /limpar · /exportar · “Abrir login” · “Levar para suporte”
           </div>
         </div>
@@ -452,7 +456,7 @@ function ChatBot() {
       {minimized && (
         <button
           onClick={() => setMinimized(false)}
-          className="fixed bottom-6 right-6 z-50 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-2xl p-3 flex items-center gap-2 transition-all"
+          className="fixed bottom-6 right-6 z-50 bg-[#A8E063] hover:bg-[#7ED957] text-[#232D1B] rounded-full shadow-2xl p-3 flex items-center gap-2 transition-all"
           aria-label="Restaurar chat"
         >
           <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
@@ -478,7 +482,7 @@ function saudacaoPorHorario() {
 
 // página/Background (mantém seu layout) 
 const navigation = [
-  { name: 'A QueueLess', href: '#a-queueless' },
+  { name: 'A KiwiLess', href: '#a-KiwiLess' },
   { name: 'Como Funciona', href: '#como-funciona' },
   { name: 'Suporte', href: '#suporte' },
 ]
@@ -489,14 +493,14 @@ function Background() {
   const handleEntrar = () => (window.location.href = '/login')
 
   return (
-    <div className="min-h-screen text-white bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+    <div className="min-h-screen text-[#232D1B] bg-gradient-to-b from-[#E9F9E1] via-[#A8E063] to-[#7ED957]">
       {/* HEADER */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">QueueLess</span>
-              <img alt="QueueLess" src="logooficial10.png" width={90} className="mx-auto h-20 w-auto" />
+              <span className="sr-only">KiwiLess</span>
+              <img alt="KiwiLess" src="kiwilesslogo.png" width={90} className="mx-auto h-20 w-auto" />
             </a>
           </div>
 
@@ -515,30 +519,34 @@ function Background() {
           {/* Desktop menu */}
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-white hover:text-indigo-400">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm/6 font-semibold text-[#9e771b] hover:text-[#56AB2F] transition-colors duration-200"
+              >
                 {item.name}
               </a>
             ))}
           </div>
 
           <button
-  onClick={handleEntrar}
-  className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2
-             bg-blue-600 hover:bg-blue-700
-             text-white font-semibold px-4 py-2 rounded-xl
-             shadow-md transition-all duration-200" 
->
-  Entrar
-</button> 
+            onClick={handleEntrar}
+            className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2
+                       bg-[#A8E063] hover:bg-[#7ED957]
+                       text-[#232D1B] font-semibold px-4 py-2 rounded-xl
+                       shadow-md transition-all duration-200" 
+          >
+            Entrar
+          </button> 
         </nav>
 
         {/* Mobile menu panel */}
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
           <div className="fixed inset-0 z-50" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#232D1B] p-6 sm:max-w-sm sm:ring-1 sm:ring-[#A8E063]/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <img alt="QueueLess" src="logoteste2.png" className="h-10 w-auto" />
+                <img alt="KiwiLess" src="logoteste2.png" className="h-10 w-auto" />
               </a>
               <button
                 type="button"
@@ -558,7 +566,7 @@ function Background() {
                       key={item.name}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-[#A8E063] hover:text-[#56AB2F] transition-colors duration-200"
                     >
                       {item.name}
                     </a>
@@ -579,24 +587,24 @@ function Background() {
       </header>
 
       {/* HERO */}
-<section className="relative isolate px-6 pt-20 lg:px-8">
+<section className="relative isolate px-6 pt-20 lg:px-8 bg-gradient-to-b from-[#E9F9E1] to-[#A8E063]">
   <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 text-center">
     <motion.h1
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl"
+      className="text-5xl font-extrabold tracking-tight text-[#232D1B] sm:text-7xl"
     >
-      Cansado de perder tempo em <span className="text-[#6875F5]">filas?</span>
+      Cansado de perder tempo em <span className="text-[#9e771b]">filas?</span>
     </motion.h1>
 
     <motion.p
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.8 }}
-      className="mt-8 text-lg leading-8 text-gray-300 max-w-2xl mx-auto"
+      className="mt-8 text-lg leading-8 text-[#232D1B] max-w-2xl mx-auto"
     >
-      Com a <span className="text-[#6875F5] font-bold">QueueLess</span>, você acompanha em tempo real
+      Com a <span className="text-[#9e771b] font-bold">KiwiLess</span>, você acompanha em tempo real
       o movimento da loja que deseja visitar. Chega de esperar sem necessidade.
     </motion.p>
 
@@ -608,13 +616,13 @@ function Background() {
     >
       <a
         href="#como-funciona"
-        className="rounded-xl bg-[#6875F5] px-6 py-3 text-base font-semibold text-white shadow-lg hover:bg-[#7e88f8] transition"
+        className="rounded-xl bg-[#E9F9E1] px-6 py-3 text-base font-semibold text-[#232D1B] shadow-lg hover:bg-[#C7F2A4] transition"
       >
         Como Funciona
       </a>
       <a
         href="#suporte"
-        className="rounded-xl border border-gray-700 px-6 py-3 text-base font-semibold text-gray-200 hover:bg-gray-800 transition"
+        className="rounded-xl border border-[#E9F9E1] px-6 py-3 text-base font-semibold text-[#232D1B] hover:bg-[#E9F9E1]/30 transition"
       >
         Fale Conosco
       </a>
@@ -622,31 +630,26 @@ function Background() {
   </div>
 </section>
 
-
-
-      {/* SEÇÃO A QueueLess */}
-<section
-  id="a-queueless"
-  className="px-6 py-24 lg:px-8 from-[#00000] to-gray-900"
->
+{/* SEÇÃO A KiwiLess */}
+<section id="a-KiwiLess" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-5xl text-center">
     <motion.h2
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="text-5xl font-extrabold text-white sm:text-6xl"
+      className="text-5xl font-extrabold text-[#232D1B] sm:text-6xl"
     >
-      A <span className="text-[#6875F5]">QueueLess</span>
+      A <span className="text-[#9e771b]">KiwiLess</span>
     </motion.h2>
     <motion.p
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.8 }}
       viewport={{ once: true }}
-      className="mt-8 text-lg leading-8 text-gray-300 max-w-3xl mx-auto"
+      className="mt-8 text-lg leading-8 text-[#232D1B] max-w-3xl mx-auto"
     >
-      A <span className="text-[#6875F5] font-bold">QueueLess</span> mostra em tempo real como está o movimento do
+      A <span className="text-[#9e771b] font-bold">KiwiLess</span> mostra em tempo real como está o movimento do
       estabelecimento que você deseja visitar. Descubra se está lotado, se a fila está curta ou se é o momento ideal
       para ir.
     </motion.p>
@@ -654,17 +657,14 @@ function Background() {
 </section>
 
 {/* SEÇÃO Como Funciona */}
-<section
-  id="como-funciona"
-  className="px-6 py-24 lg:px-8 bg-gradient-to-b from-gray-900 to-[#00000]"
->
+<section id="como-funciona" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-6xl text-center">
     <motion.h2
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="text-5xl font-extrabold sm:text-6xl"
+      className="text-5xl font-extrabold text-[#232D1B] sm:text-6xl"
     >
       Como Funciona?
     </motion.h2>
@@ -677,7 +677,7 @@ function Background() {
         },
         {
           title: 'Organização dos dados',
-          desc: 'A QueueLess processa tudo e mostra se está lotado, tranquilo ou em movimento.',
+          desc: 'A KiwiLess processa tudo e mostra se está lotado, tranquilo ou em movimento.',
           icon: '📊',
         },
         {
@@ -692,11 +692,11 @@ function Background() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.2, duration: 0.7 }}
           viewport={{ once: true }}
-          className="bg-gray-800/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-white/10"
+          className="bg-[#E9F9E1]/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-[#E9F9E1]/30"
         >
           <div className="text-4xl mb-4">{item.icon}</div>
-          <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-          <p className="mt-2 text-gray-300 text-sm">{item.desc}</p>
+          <h3 className="text-xl font-semibold text-[#232D1B]">{item.title}</h3>
+          <p className="mt-2 text-[#232D1B] text-sm">{item.desc}</p>
         </motion.div>
       ))}
     </div>
@@ -704,17 +704,14 @@ function Background() {
 </section>
 
 {/* SEÇÃO Suporte */}
-<section
-  id="suporte"
-  className="px-6 py-24 lg:px-8 bg-gradient-to-b from-[#00000] to-gray-900"
->
+<section id="suporte" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-5xl text-center">
     <motion.h2
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="text-5xl font-extrabold text-[#6875F5]"
+      className="text-5xl font-extrabold text-[#232D1B]"
     >
       Suporte
     </motion.h2>
@@ -723,33 +720,51 @@ function Background() {
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.8 }}
       viewport={{ once: true }}
-      className="mt-6 text-lg text-gray-300 max-w-3xl mx-auto"
+      className="mt-6 text-lg text-[#232D1B] max-w-3xl mx-auto"
     >
       Nossa equipe está disponível para garantir que você aproveite ao máximo a experiência com a{" "}
-      <span className="text-[#6875F5] font-bold">QueueLess</span>. Fale conosco nas redes sociais:
+      <span className="text-[#9e771b] font-bold">KiwiLess</span>.
     </motion.p>
-
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.5, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="mt-10 flex justify-center gap-8"
-    >
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
-        <img src="facebook.png" alt="Facebook" className="w-10 h-10" />
-      </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
-        <img src="instagram.png" alt="Instagram" className="w-10 h-10" />
-      </a>
-      <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
-        <img src="whatsapp.png" alt="Whatsapp" className="w-10 h-10" />
-      </a>
-    </motion.div>
   </div>
+  {/* Redes sociais */}
+    <div className="mt-6 flex justify-center gap-6 py-10 ">
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+      >
+        <Instagram className="w-6 h-6" />
+      </a>
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+      >
+        <Facebook className="w-6 h-6" />
+      </a>
+      <a
+        href="https://wa.me/5500000000000"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+      >
+        <Phone className="w-6 h-6" />
+      </a>
+    </div>
 </section>
 
-      
+{/* FOOTER */}
+<footer className="bg-[#A8E063] px-6 text-center">
+  <div className="mx-auto max-w-6xl">
+    <p className="text-[#232D1B] text-sm py-10">
+      © {new Date().getFullYear()}{" "}
+      <span className="font-bold text-[#9e771b]">KiwiLess</span>.  
+      Todos os direitos reservados.
+    </p>
+  </div>
+</footer>
       <style>
   {`
     ::-webkit-scrollbar {
@@ -816,8 +831,6 @@ function Background() {
 
   `}
 </style>
-
-
       <ChatBot />
     </div>
   )

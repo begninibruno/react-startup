@@ -9,7 +9,7 @@ function UserAvatar({ name }) {
     : "??";
 
   return (
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-400 text-white font-bold">👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍
+    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-400 text-white font-bold">
       {initials}
     </div>
   );
@@ -129,7 +129,7 @@ function Cards() {
             placeholder="Pesquisar restaurante..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 outline-none transition"
+            className="w-full pl-10 pr-4 py-2 rounded-xl border border-amber-950 focus:border-amber-950 focus:ring-2 focus:ring-amber-950 outline-none transition"
           />
         </div>
 
@@ -142,7 +142,7 @@ function Cards() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition 
                 ${
                   queueFilter === f
-                    ? "bg-blue-600 text-white shadow-md"
+                    ? " bg-amber-950 text-white shadow-md"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
             >
