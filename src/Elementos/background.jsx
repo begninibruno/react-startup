@@ -3,10 +3,8 @@ import { Dialog, DialogPanel, Transition } from '@headlessui/react'
 import { useState, useRef, useEffect } from 'react'
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Phone } from "lucide-react"
+//import kiwiLogo from "./logokiwisozinho_1.png";
 //import logoKiwiLess from 'src/Elementos/logoKiwiLess.png';
-
-
-
 
 // utilidades de NLP simplificado 
 const STOPWORDS = new Set([
@@ -341,15 +339,18 @@ function ChatBot() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-[#A8E063] to-[#7ED957] hover:scale-105 transition-transform duration-200 text-[#232D1B] rounded-full shadow-2xl p-4 flex items-center gap-2 animate-bounce"
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-[#A8E063] to-[#7ED957] hover:scale-105 transition-transform duration-200 text-[#9e771b] rounded-full shadow-2xl p-4 flex items-center gap-2 animate-bounce"
           style={{ boxShadow: '0 4px 24px rgba(104,117,245,0.3)' }}
           aria-label="Abrir chat de suporte"
         >
-          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="14" cy="14" r="12" />
-            <path d="M10 18h8M11 11h.01M17 11h.01" />
-          </svg>
-          <span className="font-bold hidden sm:block">Suporte</span>
+          <img
+            src="logokiwisozinho_1.png"
+            alt="Logo KiwiLess"
+            width={32}
+            height={32}
+            style={{padding: 2, boxShadow: '0 2px 8px rgba(34,197,94,0.10)' }}
+          />
+          <span className="font-bold hidden sm:block text-"> Suporte</span>
         </button>
       )}
 
@@ -364,12 +365,15 @@ function ChatBot() {
         leaveTo="opacity-0 translate-y-10 scale-95"
       >
         <div className="fixed bottom-6 right-6 z-50 w-80 max-w-[95vw] bg-[#232D1B] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-[#A8E063]/40">
-          <div className="bg-gradient-to-r from-[#A8E063] to-[#7ED957] text-[#232D1B] px-4 py-3 flex justify-between items-center">
+          <div className="bg-gradient-to-r from-[#A8E063] to-[#7ED957] text-[#9e771b] px-4 py-3 flex justify-between items-center">
             <span className="font-semibold flex items-center gap-2">
-              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="9" />
-                <path d="M7 15h8M8 9h.01M14 9h.01" />
-              </svg>
+              <img
+            src="logokiwisozinho_1.png"
+            alt="Logo KiwiLess"
+            width={32}
+            height={32}
+            style={{padding: 2, boxShadow: '0 2px 8px rgba(34,197,94,0.10)' }}
+          />
               Suporte KiwiLess
             </span>
             <div className="flex gap-1">
@@ -388,7 +392,7 @@ function ChatBot() {
             </div>
           </div>
 
-          <div className="flex-1 px-4 py-3 overflow-y-auto bg-[#232D1B]" style={{ maxHeight: '340px' }}>
+          <div className="flex-1 px-4 py-3 overflow-y-auto bg-[#E9F9E1]" style={{ maxHeight: '340px' }}>
             {messages.map((msg, idx) => (
               <div key={idx} className={`mb-2 flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} transition-all`}>
                 <div
@@ -413,7 +417,7 @@ function ChatBot() {
           </div>
 
           {/* quick replies */}
-          <div className="px-3 pt-2 bg-[#232D1B] flex flex-wrap gap-2">
+          <div className="px-3 pt-2 bg-[#E9F9E1] flex flex-wrap gap-2">
             {quickReplies.map((q, i) => (
               <button
                 key={i}
@@ -459,10 +463,13 @@ function ChatBot() {
           className="fixed bottom-6 right-6 z-50 bg-[#A8E063] hover:bg-[#7ED957] text-[#232D1B] rounded-full shadow-2xl p-3 flex items-center gap-2 transition-all"
           aria-label="Restaurar chat"
         >
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="9" />
-            <path d="M7 15h8M8 9h.01M14 9h.01" />
-          </svg>
+          <img
+            src="logokiwisozinho_1.png"
+            alt="Logo KiwiLess"
+            width={32}
+            height={32}
+            style={{padding: 2, boxShadow: '0 2px 8px rgba(34,197,94,0.10)' }}
+          />
         </button>
       )}
     </>
@@ -480,7 +487,7 @@ function saudacaoPorHorario() {
   }
 }
 
-// página/Background (mantém seu layout) 
+// página/background (mantém seu layout) 
 const navigation = [
   { name: 'A KiwiLess', href: '#a-KiwiLess' },
   { name: 'Como Funciona', href: '#como-funciona' },
@@ -493,8 +500,8 @@ function Background() {
   const handleEntrar = () => (window.location.href = '/login')
 
   return (
-    <div className="min-h-screen text-[#232D1B] bg-gradient-to-b from-[#E9F9E1] via-[#A8E063] to-[#7ED957]">
-      {/* HEADER */}
+    <div className="min-h-screen text-[#232D1B] bg-gradient-to-b from-[#E9F9E1] via-[#A8E063] to-[#A8E063]">
+      {/* header */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
@@ -504,7 +511,7 @@ function Background() {
             </a>
           </div>
 
-          {/* Mobile menu button */}
+          {/* mobile menu button */}
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -516,7 +523,7 @@ function Background() {
             </button>
           </div>
 
-          {/* Desktop menu */}
+          {/* desktop menu */}
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <a
@@ -540,7 +547,7 @@ function Background() {
           </button> 
         </nav>
 
-        {/* Mobile menu panel */}
+        {/* mobile menu panel */}
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
           <div className="fixed inset-0 z-50" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#232D1B] p-6 sm:max-w-sm sm:ring-1 sm:ring-[#A8E063]/10">
@@ -586,7 +593,7 @@ function Background() {
         </Dialog>
       </header>
 
-      {/* HERO */}
+      {/* hero */}
 <section className="relative isolate px-6 pt-20 lg:px-8 bg-gradient-to-b from-[#E9F9E1] to-[#A8E063]">
   <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 text-center">
     <motion.h1
@@ -602,10 +609,10 @@ function Background() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.8 }}
-      className="mt-8 text-lg leading-8 text-[#232D1B] max-w-2xl mx-auto"
+      className="mt-8 text-small leading-8 text-[#232D1B] max-w-3xl mx-auto"
     >
-      Com a <span className="text-[#9e771b] font-bold">KiwiLess</span>, você acompanha em tempo real
-      o movimento da loja que deseja visitar. Chega de esperar sem necessidade.
+      Com a <span className="text-[#9e771b] font-bold">KiwiLess</span>, você acompanha em tempo real o movimento do restaurante que deseja visitar. 
+      <p>Chega de esperar sem necessidade.</p>
     </motion.p>
 
     <motion.div
@@ -621,16 +628,16 @@ function Background() {
         Como Funciona
       </a>
       <a
-        href="#suporte"
+        href="/registro"
         className="rounded-xl border border-[#E9F9E1] px-6 py-3 text-base font-semibold text-[#232D1B] hover:bg-[#E9F9E1]/30 transition"
       >
-        Fale Conosco
+        Cadastrar-se
       </a>
     </motion.div>
   </div>
 </section>
 
-{/* SEÇÃO A KiwiLess */}
+  {/* seção a kiwiLess */}
 <section id="a-KiwiLess" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-5xl text-center">
     <motion.h2
@@ -651,12 +658,50 @@ function Background() {
     >
       A <span className="text-[#9e771b] font-bold">KiwiLess</span> mostra em tempo real como está o movimento do
       estabelecimento que você deseja visitar. Descubra se está lotado, se a fila está curta ou se é o momento ideal
-      para ir.
+      para ir. Evite filas desnecessárias e aproveite melhor seu tempo.
+    </motion.p>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.7 }}
+      viewport={{ once: true }}
+      className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      <div className="bg-[#E9F9E1]/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-[#E9F9E1]/30">
+        <div className="text-4xl mb-4">📱</div>
+        <h3 className="text-xl font-semibold text-[#232D1B]">Acesse por um dispositivo</h3>
+        <p className="mt-2 text-[#232D1B] text-sm">
+          Use o site para pesquisar estabelecimentos próximos e visualizar o status em tempo real.
+        </p>
+      </div>
+      <div className="bg-[#E9F9E1]/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-[#E9F9E1]/30">
+        <div className="text-4xl mb-4">🔔</div>
+        <h3 className="text-xl font-semibold text-[#232D1B]">Receba alertas</h3>
+        <p className="mt-2 text-[#232D1B] text-sm">
+          Ative notificações para ser avisado quando o movimento estiver mais tranquilo no local que você deseja.
+        </p>
+      </div>
+      <div className="bg-[#E9F9E1]/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-[#E9F9E1]/30">
+        <div className="text-4xl mb-4">📊</div>
+        <h3 className="text-xl font-semibold text-[#232D1B]">Dados confiáveis</h3>
+        <p className="mt-2 text-[#232D1B] text-sm">
+          As informações são atualizadas pelos próprios estabelecimentos e por sensores, garantindo precisão e agilidade.
+        </p>
+      </div>
+    </motion.div>
+    <motion.p
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.8, duration: 0.8 }}
+      viewport={{ once: true }}
+      className="mt-10 text-base text-[#232D1B] max-w-2xl mx-auto"
+    >
+      Com a <span className="text-[#9e771b] font-bold">KiwiLess</span>, você economiza tempo, evita aglomerações e tem mais controle sobre sua rotina. Nossa missão é transformar sua experiência em lojas, restaurantes e outros estabelecimentos, tornando seu dia a dia mais prático e inteligente.
     </motion.p>
   </div>
 </section>
 
-{/* SEÇÃO Como Funciona */}
+{/* seção como funciona */}
 <section id="como-funciona" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-6xl text-center">
     <motion.h2
@@ -703,7 +748,7 @@ function Background() {
   </div>
 </section>
 
-{/* SEÇÃO Suporte */}
+{/* seção suporte */}
 <section id="suporte" className="px-6 py-24 lg:px-8 bg-[#A8E063]">
   <div className="mx-auto max-w-5xl text-center">
     <motion.h2
@@ -726,39 +771,39 @@ function Background() {
       <span className="text-[#9e771b] font-bold">KiwiLess</span>.
     </motion.p>
   </div>
-  {/* Redes sociais */}
-    <div className="mt-6 flex justify-center gap-6 py-10 ">
-      <a
-        href="https://instagram.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
-      >
-        <Instagram className="w-6 h-6" />
-      </a>
-      <a
-        href="https://facebook.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
-      >
-        <Facebook className="w-6 h-6" />
-      </a>
-      <a
-        href="https://wa.me/5500000000000"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#232D1B] hover:text-[#E9F9E1] transition"
-      >
-        <Phone className="w-6 h-6" />
-      </a>
-    </div>
+  {/* redes sociais */}
+<div className="mt-4 flex justify-center gap-6">
+  <a
+    href="https://instagram.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+  >
+    <Instagram className="w-6 h-6" />
+  </a>
+  <a
+    href="https://facebook.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+  >
+    <Facebook className="w-6 h-6" />
+  </a>
+  <a
+    href="https://wa.me/5500000000000"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-[#232D1B] hover:text-[#E9F9E1] transition"
+  >
+    <Phone className="w-6 h-6" />
+  </a>
+</div>
 </section>
 
-{/* FOOTER */}
-<footer className="bg-[#A8E063] px-6 text-center">
+{/* footer */}
+<footer className="bg-[#A8E063] px-6 text-center mt-6">
   <div className="mx-auto max-w-6xl">
-    <p className="text-[#232D1B] text-sm py-10">
+    <p className="text-[#232D1B] text-sm py-4">
       © {new Date().getFullYear()}{" "}
       <span className="font-bold text-[#9e771b]">KiwiLess</span>.  
       Todos os direitos reservados.
@@ -766,70 +811,47 @@ function Background() {
   </div>
 </footer>
       <style>
-  {`
-    ::-webkit-scrollbar {
-  width: 8px;
-}
+    {`
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
 
-::-webkit-scrollbar-track {
-  background: #111827; /* fundo igual ao site */
-}
+      ::-webkit-scrollbar-track {
+        background: #f3f4f6; /* fundo claro */
+      }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgba(104, 117, 245, 0.6);
-  border-radius: 9999px;
-}
+      ::-webkit-scrollbar-thumb {
+        background-color: #22c55e; /* verde KiwiLess */
+        border-radius: 9999px;
+        min-height: 40px;
+        border: 2px solid #f3f4f6;
+      }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(104, 117, 245, 0.85);
-}
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #16a34a; /* verde mais escuro ao hover */
+      }
 
-::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-  background: transparent;
-}
+      ::-webkit-scrollbar-button,
+      ::-webkit-scrollbar-button:start:decrement,
+      ::-webkit-scrollbar-button:end:increment {
+        display: none;
+        width: 0;
+        height: 0;
+        background: transparent;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+      }
 
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment {
-  display: none;
-  height: 0;
-  background: transparent;
-}
+      ::-webkit-scrollbar-corner {
+        background: transparent !important;
+      }
 
-::-webkit-scrollbar-button {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  display: none !important;
-}
-
-::-webkit-scrollbar-thumb {
-  min-height: 40px; /* define altura mínima */
-  border: none;     /* remove qualquer borda */
-  margin: 0;        /* evita espaço extra */
-}
-
-::-webkit-scrollbar-button {
-  display: none !important;
-  width: 0;
-  height: 0;
-}
-
-::-webkit-scrollbar-corner {
-  background: transparent !important;
-}
-
-
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(104,117,245,0.6) #111827;
-}
-
-
-  `}
+      /* Firefox */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #22c55e #f3f4f6;
+      }
+    `}
 </style>
       <ChatBot />
     </div>

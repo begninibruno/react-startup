@@ -12,8 +12,12 @@ import { useUser } from "./Contexts/Context.jsx"; // ✅ Import do contexto de u
 
 const navigation = [
   { name: "Filas", href: "#", current: true },
+  {
+     name: '"A vida é curta demais para ser perdida em filas de restaurantes" - KiwiLess',
+  },
   
 ];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -37,7 +41,7 @@ function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className=" bg-[#A8E063] shadow-md">
+    <Disclosure as="nav" className=" bg-[#6DA671] shadow-md">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           {/* menu mobile */}
@@ -53,8 +57,8 @@ function Navbar() {
             <div className="flex items-center h-16 shrink-0">
               <img
                 alt="Logo"
-                src="logooficial10.png" 
-                className="w-16 h-16 object-contain"
+                src="kiwilesslogo.png" 
+                className="w-40 h-30 object-contain"
               />
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -65,9 +69,9 @@ function Navbar() {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? " bg-amber-950 text-white"
-                        : "text-blue-100 hover:bg-amber-950 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
+                        ? " bg-[#9e771b] text-white"  
+                        : "text-yellow-950 hover:text-[#9e771b]",
+                      "rounded-md px-4 py-2 text-sm font-semibold justify-evenly"
                     )}
                   >
                     {item.name}
@@ -81,12 +85,12 @@ function Navbar() {
           {user ? (
             <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <Menu as="div" className="relative ml-3">
-                <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-white font-bold">
+                <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-[#9e771b]  text-white font-bold">
                   {getInitials(user.name)}
                 </MenuButton>
 
                 {/* Dropdown do usuário */}
-                <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right bg-lime-300 rounded-md shadow-lg ring-1 ring-zinc-500 ring-opacity-4  focus:outline-none">
                   <MenuItem>
                     {({ active }) => (
                       <button

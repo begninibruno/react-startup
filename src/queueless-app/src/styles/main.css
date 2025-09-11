@@ -196,3 +196,23 @@ button {
 .hover\:text-indigo-400:hover {
     color: #4f46e5;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+    background: #f3f4f6; /* fundo claro */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #22c55e; /* verde (ajuste se quiser outro tom) */
+    border-radius: 8px;
+    border: 2px solid #f3f4f6; /* borda para destacar o polegar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #16a34a; /* verde mais escuro ao passar o mouse */
+}
+
+::-webkit-scrollbar-track {
+    background: #f3f4f6; /* fundo claro atrás da barra */
+}   

@@ -46,7 +46,7 @@ function Login() {
   return (
     <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
-        <img alt="Your Company" src="logooficial10.png" className="mx-auto h-20 w-auto" />
+        <img alt="Your Company" src="kiwilesslogo.png" className="mx-auto h-40 w-auto" />
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">
           Conecte-se com sua conta
         </h2>
@@ -68,18 +68,18 @@ function Login() {
                 autoComplete="email"
                 value={form.email}
                 onChange={handleChange}
-                className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
+                className="block w-full rounded-md bg-[#eef0ff] border  border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ">
               <label htmlFor="password" className="block text-sm/6 font-medium text-black-100">
                 Senha
               </label>
               <div className="text-sm">
-                <a href="background.jsx" className="font-semibold text-indigo-400 hover:text-indigo-300">
+                <a href="background.jsx" className="font-semibold text-[#9e771b] hover:text-yellow-950">
                   Esqueceu a senha?
                 </a>
               </div>
@@ -93,7 +93,7 @@ function Login() {
                 autoComplete="current-password"
                 value={form.password}
                 onChange={handleChange}
-                className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
+                className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
           </div>
@@ -113,7 +113,7 @@ function Login() {
           <button
             type="button"
             onClick={() => navigate('/registro')}
-            className="font-semibold text-indigo-400 hover:text-indigo-300 underline bg-transparent border-none cursor-pointer p-0"
+            className="font-semibold text-[#9e771b] hover:text-yellow underline bg-transparent border-none cursor-pointer p-0"
           >
             Cadastre-se
           </button>

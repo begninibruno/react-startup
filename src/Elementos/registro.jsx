@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-function Registro() {
+"Background-color:e5f8e5;"
+function Registro()  {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -44,12 +44,13 @@ function Registro() {
 
   return (
     <>
+    
       <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
           <img
             alt="QueueLess"
-            src="logooficial10.png"
-            className="mx-auto h-20 w-auto"
+            src="kiwilesslogo.png"
+            className="mx-auto h-40 w-auto"
           />
           <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-black">
             Crie sua conta
@@ -72,11 +73,11 @@ function Registro() {
                   autoComplete="name"
                   value={form.name}
                   onChange={handleChange}
-                  className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
+                  className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
                 />
               </div>
             </div>
-
+                                
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-black">
                 Endereço de e-mail
@@ -90,11 +91,10 @@ function Registro() {
                   autoComplete="email"
                   value={form.email}
                   onChange={handleChange}
-                  className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
+                  className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
                 />
               </div>
             </div>
-
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-black">
                 Senha
@@ -108,7 +108,7 @@ function Registro() {
                   autoComplete="new-password"
                   value={form.password}
                   onChange={handleChange}
-                  className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
+                  className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
                 />
               </div>
             </div>
@@ -126,7 +126,7 @@ function Registro() {
                   autoComplete="new-password"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className="block w-full rounded-md bg-[#eef0ff] border border-[#6366f1] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
+                  className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm"
                 />
               </div>
             </div>
@@ -134,7 +134,7 @@ function Registro() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="flex w-full justify-center rounded-md bg-[#A8E063] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[7ED957] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Cadastrar
               </button>
