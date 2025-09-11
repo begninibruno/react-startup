@@ -93,17 +93,16 @@ function Cards() {
   });
 
   return (
-    <div
+       
+  <div className="min-h-screen bg-gradient-to-b from-[#E9F9E1]/30 to-[#77cd52] text-[#9e771b] px-4 py-3 flex justify-between "  
       style={{
-        backgroundColor: "#e5f8e5 ", 
         minHeight: "100vh", // ocupa a tela toda
-        //backgroundImage: "url('/kiwi2.jpg')", // kiwi.jpg está em public/esse arrombado
         backgroundRepeat: "repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-       opacity: 1,
+      
       }}
-      className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
+      //className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
     >
       <div className="max-w-[85rem] mx-auto">
         {/* 🔎 Barra de pesquisa, filtro */}
@@ -160,7 +159,7 @@ function Cards() {
             <button
               key={idx}
               onClick={() => setOpenModal(idx)}
-              className="group block rounded-xl overflow-hidden focus:outline-none text-left border border-gray-200 hover:border-lime-500 transition-colors duration-300 shadow-sm hover:shadow-md shadow-lime-500"
+              className="group block rounded-xl overflow-hidden focus:outline-none text-left border border-[#9e771b] hover:border-[#9e771b] transition-colors duration-300 shadow-sm hover:shadow-md shadow-lime-500"
               aria-label={`Abrir card: ${card.title}`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 p-4 bg-white/100 rounded-xl">

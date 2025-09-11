@@ -78,8 +78,8 @@ const KB = [
   {
     id: 'price',
     intent: 'preco',
-    q: ['e gratis', 'tem custo', 'preco', 'valor', 'planos'],
-    rx: [/gratis|custa|preco|valor|planos/i],
+    q: ['e gratis', 'tem custo', 'preco', 'valor', 'planos', 'É grátis?'],
+    rx: [/gratis|custa|preco|valor|planos|É grátis?/i],
     answer: () => (
       'Para usuários, é gratuito. Estabelecimentos têm planos com recursos como prioridade no mapa, ' +
       'insights de demanda e integrações. Se você é gestor, fale “planos para estabelecimentos”.'
@@ -498,6 +498,7 @@ function Background() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleEntrar = () => (window.location.href = '/login')
+  const handleCadastrar = () => (window.location.href = '/registro')
 
   return (
     <div className="min-h-screen text-[#232D1B] bg-gradient-to-b from-[#E9F9E1] via-[#A8E063] to-[#A8E063]">
@@ -516,7 +517,7 @@ function Background() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#9e771b]"
             >
               <span className="sr-only">Abrir menu principal</span>
               <Bars3Icon aria-hidden="true" className="h-6 w-6" />
@@ -552,8 +553,8 @@ function Background() {
           <div className="fixed inset-0 z-50" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#232D1B] p-6 sm:max-w-sm sm:ring-1 sm:ring-[#A8E063]/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <img alt="KiwiLess" src="logoteste2.png" className="h-10 w-auto" />
+              <a className="-m-1.5 p-1.5">
+                <img alt="KiwiLess" src="kiwilesslogo.png" className="h-20 w-auto" />
               </a>
               <button
                 type="button"
@@ -585,6 +586,12 @@ function Background() {
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
                     Entrar
+                  </button>
+                  <button
+                    onClick={handleCadastrar}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Cadastrar-se
                   </button>
                 </div>
               </div>
@@ -622,10 +629,10 @@ function Background() {
       className="mt-10 flex items-center justify-center gap-6"
     >
       <a
-        href="#como-funciona"
+        href="/login"
         className="rounded-xl bg-[#E9F9E1] px-6 py-3 text-base font-semibold text-[#232D1B] shadow-lg hover:bg-[#C7F2A4] transition"
       >
-        Como Funciona
+        Entrar
       </a>
       <a
         href="/registro"
@@ -771,6 +778,7 @@ function Background() {
       <span className="text-[#9e771b] font-bold">KiwiLess</span>.
     </motion.p>
   </div>
+  <br></br>
   {/* redes sociais */}
 <div className="mt-4 flex justify-center gap-6">
   <a

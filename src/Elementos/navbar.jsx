@@ -70,7 +70,7 @@ function Navbar() {
                     className={classNames(
                       item.current
                         ? " bg-[#9e771b] text-white"  
-                        : "text-yellow-950 hover:text-[#9e771b]",
+                        : "text-yellow-950",
                       "rounded-md px-4 py-2 text-sm font-semibold justify-evenly"
                     )}
                   >
@@ -85,18 +85,18 @@ function Navbar() {
           {user ? (
             <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <Menu as="div" className="relative ml-3">
-                <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-[#9e771b]  text-white font-bold">
+                <MenuButton className="flex items-center justify-center w-10 h-10 rounded-full bg-[#9e771b]  text-white font-bold, hover:bg-[#b48f3b] ">
                   {getInitials(user.name)}
                 </MenuButton>
 
                 {/* Dropdown do usuário */}
-                <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right bg-lime-300 rounded-md shadow-lg ring-1 ring-zinc-500 ring-opacity-4  focus:outline-none">
+                <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-zinc-500 ring-opacity-4  focus:outline-none">
                   <MenuItem>
                     {({ active }) => (
                       <button
                         onClick={handleLogout}
                         className={classNames(
-                          active ? "bg-gray-100" : "",
+                          active ? "bg-[#8ab478]" : "",
                           "w-full px-3 py-2 text-left text-sm text-gray-700"
                         )}
                       >

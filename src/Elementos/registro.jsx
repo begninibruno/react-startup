@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-"Background-color:e5f8e5;"
-function Registro()  {
+
+function Registro() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -44,8 +44,7 @@ function Registro()  {
 
   return (
     <>
-    
-      <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
+      <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8 bg-gradient-to-b from-[#E9F9E1] to-[#77cd52]">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
           <img
             alt="QueueLess"
@@ -134,13 +133,11 @@ function Registro()  {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-[#A8E063] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[7ED957] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="flex w-full justify-center rounded-md bg-[#9e771b] px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#b48f3b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Cadastrar
               </button>
             </div>
-
-          
           </form>
         </div>
       </div>

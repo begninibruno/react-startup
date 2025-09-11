@@ -27,12 +27,10 @@ function Login() {
       // Salvar token no localStorage ou sessionStorage
       localStorage.setItem('token', response.data.token);
       
+      const usuario = { userId: response.data.id, name: response.data.name, email: response.data.email };
+      setUser(usuario); // Salvar usuário no contexto
 
-  const usuario = { userId: response.data.id, name: response.data.name, email: response.data.email };
-  setUser(usuario); // Salvar usuário no contexto
-      
-  
-  // Redirecionar para página protegida
+      // Redirecionar para página protegida
       navigate('/landpage'); 
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -44,7 +42,7 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-start px-6 py-4 lg:px-8 bg-gradient-to-b from-[#E9F9E1] to-[#77cd52]">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
         <img alt="Your Company" src="kiwilesslogo.png" className="mx-auto h-40 w-auto" />
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-black">
@@ -68,21 +66,16 @@ function Login() {
                 autoComplete="email"
                 value={form.email}
                 onChange={handleChange}
-                className="block w-full rounded-md bg-[#eef0ff] border  border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
+                className="block w-full rounded-md bg-[#eef0ff] border border-[#9e771b] px-3 py-1.5 text-base text-black placeholder:text-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm/6"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between ">
+            <div className="flex items-center justify-between">
               <label htmlFor="password" className="block text-sm/6 font-medium text-black-100">
                 Senha
               </label>
-              <div className="text-sm">
-                <a href="background.jsx" className="font-semibold text-[#9e771b] hover:text-yellow-950">
-                  Esqueceu a senha?
-                </a>
-              </div>
             </div>
             <div className="mt-2">
               <input
@@ -101,14 +94,14 @@ function Login() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-[#A8E063] px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-[7ED957] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="flex w-full justify-center rounded-md bg-[#9e771b] px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-[#b48f3b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Login
             </button>
           </div>
         </form>
 
-        <p className="mt-6 text-center text-sm/6 text-gray-400">
+        <p className="mt-6 text-center text-sm/6 text-slate-900">
           Ainda não é um membro?{' '}
           <button
             type="button"

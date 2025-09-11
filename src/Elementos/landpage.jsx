@@ -23,6 +23,7 @@ function Landpage () {
  
     return (
     <div className="landpage">
+ 
         <Navbar/> 
         <Cards/>
       
