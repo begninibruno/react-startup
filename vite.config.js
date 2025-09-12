@@ -6,7 +6,6 @@ import flowbiteReact from "flowbite-react/plugin/vite";
 export default defineConfig({
   plugins: [react(), flowbiteReact()],
   server: {
-    host: '0.0.0.0',
-    port: 5173 // ou outro que quiser
+     allowedHosts: [ 'kiwiless-u25l.onrender.com'], // permite todos os domínios do Render
   }
 })
